@@ -51,6 +51,8 @@ main {
     margin: 2rem auto;
     padding: 0 1rem;
     flex: 1;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .hero {
@@ -79,6 +81,9 @@ main {
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.05);
     transition: transform 0.2s;
+    
+    display: flex;
+    flex-direction: column;
 }
 
 .card:hover {
@@ -99,13 +104,15 @@ footer {
 
 .btn-link {
     display: inline-block;
-    margin-top: 15px;
     padding: 10px 20px;
     border-radius: 6px;
     text-decoration: none;
     font-weight: bold;
     color: white;
     transition: transform 0.2s, opacity 0.2s;
+    
+    margin-top: auto; 
+    align-self: flex-start;
 }
 
 .btn-link:hover {
@@ -125,5 +132,6 @@ footer {
     .btn-link {
         display: block;
         text-align: center;
+        align-self: stretch; 
     }
 }
