@@ -121,11 +121,11 @@ footer {
 }
 
 .btn-discord {
-    background-color: #5865F2;
+    background-color: #cc0000;
 }
 
 .btn-telegram {
-    background-color: #0088cc;
+    background-color: #cc0000;
 }
 
 @media (max-width: 600px) {
