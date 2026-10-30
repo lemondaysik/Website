@@ -8,47 +8,73 @@
 </head>
 <body>
 
-    <script>
-        const discordLink = "https://discord.gg/zQUdWaAyV5"; 
-        const telegramLink = "https://t.me/miniviperr_bot";        
-    </script>
-
     <header>
         <div class="logo">Mini Viperr</div>
         <nav>
-            <a href="index.html">Русский</a>
-            <a href="en.html">English</a>
+            <a href="#" onclick="showPage('home'); return false;" id="nav-home">Главная</a>
+            <a href="#" onclick="showPage('important'); return false;" id="nav-important">Важное</a>
+            <a href="#" onclick="showPage('donate'); return false;" id="nav-donate">Донатик</a>
+            
+            <a href="#" onclick="setLang('ru'); return false;" id="lang-ru" style="color: var(--primary-color); border-left: 1px solid #ccc; padding-left: 15px;">Русский</a>
+            <a href="#" onclick="setLang('en'); return false;" id="lang-en">English</a>
         </nav>
     </header>
 
     <main>
-        <section class="hero">
-            <h1>Добро пожаловать!</h1>
-            <p>Этот сайт перенаправит вас на Discord сервер создателей сайта и бота для Telegram.</p>
-        </section>
+        <div id="page-home" class="page-section">
+            <section class="hero">
+                <h1 id="t-home-title">Добро пожаловать!</h1>
+                <p id="t-home-desc">Этот сайт перенаправит вас на Discord сервер создателей сайта и бота для Telegram.</p>
+                
+                <div class="image-gallery">
+                    <img src="images/3.png" alt="Фото 1" class="site-image">
+                    <img src="images/image2.png" alt="Фото 2" class="site-image">
+                    <img src="images/image.png" alt="Фото 3" class="site-image">
+                </div>
 
-        <section class="projects">
-            <div class="card">
-                <h3>Discord</h3>
-                <p>По ссылке ниже вы сможете перейти на Discord сервер создателей.</p>
-                <a id="link-discord" href="#" target="_blank" class="btn-link btn-discord">Перейти в Discord</a>
-            </div>
-            <div class="card">
-                <h3>Telegram Bot</h3>
-                <p>По ссылке вы сможете найти нашего бота для Telegram.</p>
-                <a id="link-telegram" href="#" target="_blank" class="btn-link btn-telegram">Открыть Telegram-бота</a>
-            </div>
-        </section>
+            </section>
+        </div>
+
+        <div id="page-important" class="page-section" style="display: none;">
+            <section class="hero">
+                <h1 id="t-important-title">Важные ссылки</h1>
+                <p id="t-important-desc">Здесь вы можете найти наши основные проекты.</p>
+            </section>
+
+            <section class="projects">
+                <div class="card">
+                    <h3>Discord</h3>
+                    <p id="t-discord-desc">По ссылке ниже вы сможете перейти на Discord сервер создателей.</p>
+                    <a id="link-discord" href="#" target="_blank" class="btn-link btn-discord t-btn-discord">Перейти в Discord</a>
+                </div>
+                <div class="card">
+                    <h3>Telegram Bot</h3>
+                    <p id="t-telegram-desc">По ссылке вы сможете найти нашего бота для Telegram.</p>
+                    <a id="link-telegram" href="#" target="_blank" class="btn-link btn-telegram t-btn-telegram">Открыть Telegram-бота</a>
+                </div>
+            </section>
+        </div>
+
+        <div id="page-donate" class="page-section" style="display: none;">
+            <section class="hero">
+                <h1 id="t-donate-title">Поддержать проект</h1>
+                <p id="t-donate-desc1">Если вы хотите поддержать нас, то вы можете написать в ТГ личку <a href="https://t.me/miniviperr" target="_blank">@miniviperr</a>.</p>
+                <p id="t-donate-desc2">Также вы можете накинуть туда нфтишок, которые мы продадим и обновим хостинги и купим хороший домен.</p>
+                
+                <br>
+                <a id="link-donate" href="#" target="_blank" class="btn-link btn-telegram">Написать в Telegram</a>
+                
+                <div class="image-container" style="margin-top: 30px;">
+                    <img src="images/images123.jpg" alt="Фото для доната" class="site-image">
+                </div>
+            </section>
+        </div>
     </main>
 
     <footer>
-        <p>&copy; 2026 Mini Viperr. Все права защищены.</p>
+        <p>&copy; 2026 Mini Viperr. <span id="t-footer">Все права защищены.</span></p>
     </footer>
 
-    <script>
-        document.getElementById('link-discord').href = discordLink;
-        document.getElementById('link-telegram').href = telegramLink;
-    </script>
-
+    <script src="script.js"></script>
 </body>
 </html>
