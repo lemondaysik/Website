@@ -19,21 +19,6 @@
     <canvas id="particles-bg"></canvas>
     <div class="custom-cursor"></div>
 
-    <div id="garland" style="display: none;">
-        <div class="light red"></div>
-        <div class="light blue"></div>
-        <div class="light green"></div>
-        <div class="light yellow"></div>
-        <div class="light red"></div>
-        <div class="light blue"></div>
-        <div class="light green"></div>
-        <div class="light yellow"></div>
-        <div class="light red"></div>
-        <div class="light blue"></div>
-        <div class="light green"></div>
-        <div class="light yellow"></div>
-    </div>
-
     <header>
         <div class="logo">Mini Viperr</div>
         <nav>
@@ -41,14 +26,40 @@
             <a href="#" onclick="showPage('important'); return false;" id="nav-important">Важное</a>
             <a href="#" onclick="showPage('donate'); return false;" id="nav-donate">Донатик</a>
             
-            <button id="newyear-toggle" title="Новогодний режим" style="background: none; border: none; font-size: 1.2rem; cursor: pointer; margin-left: 15px; transition: transform 0.3s;">🎄</button>
-            <button id="particle-toggle" title="Сменить эффект фона" style="background: none; border: none; font-size: 1.2rem; cursor: pointer; margin-left: 15px; transition: transform 0.3s;">❄️</button>
-            <button id="theme-toggle" title="Сменить тему">🌙</button>
-
-            <a href="#" onclick="setLang('ru'); return false;" id="lang-ru" class="lang-btn active-lang">Русский</a>
-            <a href="#" onclick="setLang('en'); return false;" id="lang-en" class="lang-btn">English</a>
+            <div class="nav-controls">
+                <button id="newyear-toggle" title="Новогодний режим">🎄</button>
+                <button id="particle-toggle" title="Сменить эффект фона">❄️</button>
+                <button id="theme-toggle" title="Сменить тему">🌙</button>
+                
+                <div class="lang-switch">
+                    <a href="#" onclick="setLang('ru'); return false;" id="lang-ru" class="lang-btn active-lang">Русский</a>
+                    <a href="#" onclick="setLang('en'); return false;" id="lang-en" class="lang-btn">English</a>
+                </div>
+            </div>
         </nav>
     </header>
+
+    <div id="garland" style="display: none;">
+        <div class="wire"></div>
+        <div class="lights">
+            <div class="light red"></div>
+            <div class="light blue"></div>
+            <div class="light green"></div>
+            <div class="light yellow"></div>
+            <div class="light red"></div>
+            <div class="light blue"></div>
+            <div class="light green"></div>
+            <div class="light yellow"></div>
+            <div class="light red"></div>
+            <div class="light blue"></div>
+            <div class="light green"></div>
+            <div class="light yellow"></div>
+            <div class="light red"></div>
+            <div class="light blue"></div>
+            <div class="light green"></div>
+            <div class="light yellow"></div>
+        </div>
+    </div>
 
     <main>
         <div id="page-home" class="page-section">
@@ -126,14 +137,52 @@
         </div>
     </main>
 
-    <footer style="position: relative; overflow: hidden; padding-bottom: 120px;">
+    <footer>
         <p>&copy; 2026 Mini Viperr. <span id="t-footer">Все права защищены.</span></p>
         
-        <div id="winter-footer" style="display: none; position: absolute; bottom: 0; left: 0; width: 100%; height: 100px; pointer-events: none;">
-            <div style="position: absolute; bottom: -10px; left: 10%; font-size: 50px;">⛄</div>
-            <div style="position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%); font-size: 70px;">🎄</div>
-            <div style="position: absolute; bottom: -15px; right: 15%; font-size: 60px;">☃️</div>
-            <div style="position: absolute; bottom: 0; left: 0; width: 100%; height: 40px; background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23ffffff" fill-opacity="0.8" d="M0,224L48,213.3C96,203,192,181,288,181.3C384,181,480,203,576,224C672,245,768,267,864,250.7C960,235,1056,181,1152,165.3C1248,149,1344,171,1392,181.3L1440,192L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>') repeat-x; background-size: cover;"></div>
+        <div id="winter-footer" style="display: none;">
+            <div class="snowdrift"></div>
+            
+            <div class="svg-decor snowman left">
+                <svg viewBox="0 0 100 120" width="100%" height="100%">
+                    <circle cx="50" cy="95" r="25" fill="#fff" stroke="#333" stroke-width="2"/>
+                    <circle cx="50" cy="60" r="18" fill="#fff" stroke="#333" stroke-width="2"/>
+                    <circle cx="50" cy="35" r="12" fill="#fff" stroke="#333" stroke-width="2"/>
+                    <path d="M40 30 L30 25 L40 35" fill="#fff" stroke="#333" stroke-width="2"/>
+                    <circle cx="45" cy="33" r="1.5" fill="#000"/>
+                    <circle cx="55" cy="33" r="1.5" fill="#000"/>
+                    <path d="M50 38 L60 38 L50 42 Z" fill="#f39c12"/>
+                    <path d="M35 48 L15 35" stroke="#333" stroke-width="2"/>
+                    <path d="M65 48 L85 35" stroke="#333" stroke-width="2"/>
+                </svg>
+            </div>
+            
+            <div class="svg-decor tree">
+                <svg viewBox="0 0 100 120" width="100%" height="100%">
+                    <rect x="45" y="90" width="10" height="20" fill="#5c4033"/>
+                    <polygon points="50,10 20,50 35,50 10,85 90,85 65,50 80,50" fill="#2e7d32" stroke="#1b5e20" stroke-width="2"/>
+                    <circle cx="50" cy="15" r="3" fill="#f1c40f"/>
+                    <circle cx="30" cy="60" r="2.5" fill="#f1c40f"/>
+                    <circle cx="70" cy="60" r="2.5" fill="#f1c40f"/>
+                    <circle cx="50" cy="80" r="2.5" fill="#f1c40f"/>
+                    <circle cx="40" cy="40" r="2.5" fill="#f1c40f"/>
+                    <circle cx="60" cy="40" r="2.5" fill="#f1c40f"/>
+                </svg>
+            </div>
+
+            <div class="svg-decor snowman right">
+                <svg viewBox="0 0 100 120" width="100%" height="100%">
+                    <circle cx="50" cy="95" r="25" fill="#fff" stroke="#333" stroke-width="2"/>
+                    <circle cx="50" cy="60" r="18" fill="#fff" stroke="#333" stroke-width="2"/>
+                    <circle cx="50" cy="35" r="12" fill="#fff" stroke="#333" stroke-width="2"/>
+                    <path d="M40 30 L30 25 L40 35" fill="#fff" stroke="#333" stroke-width="2"/>
+                    <circle cx="45" cy="33" r="1.5" fill="#000"/>
+                    <circle cx="55" cy="33" r="1.5" fill="#000"/>
+                    <path d="M50 38 L60 38 L50 42 Z" fill="#f39c12"/>
+                    <path d="M35 48 L15 35" stroke="#333" stroke-width="2"/>
+                    <path d="M65 48 L85 35" stroke="#333" stroke-width="2"/>
+                </svg>
+            </div>
         </div>
     </footer>
 
