@@ -16,6 +16,24 @@
 </head>
 <body>
 
+    <canvas id="particles-bg"></canvas>
+    <div class="custom-cursor"></div>
+
+    <div id="garland" style="display: none;">
+        <div class="light red"></div>
+        <div class="light blue"></div>
+        <div class="light green"></div>
+        <div class="light yellow"></div>
+        <div class="light red"></div>
+        <div class="light blue"></div>
+        <div class="light green"></div>
+        <div class="light yellow"></div>
+        <div class="light red"></div>
+        <div class="light blue"></div>
+        <div class="light green"></div>
+        <div class="light yellow"></div>
+    </div>
+
     <header>
         <div class="logo">Mini Viperr</div>
         <nav>
@@ -23,6 +41,8 @@
             <a href="#" onclick="showPage('important'); return false;" id="nav-important">Важное</a>
             <a href="#" onclick="showPage('donate'); return false;" id="nav-donate">Донатик</a>
             
+            <button id="newyear-toggle" title="Новогодний режим" style="background: none; border: none; font-size: 1.2rem; cursor: pointer; margin-left: 15px; transition: transform 0.3s;">🎄</button>
+            <button id="particle-toggle" title="Сменить эффект фона" style="background: none; border: none; font-size: 1.2rem; cursor: pointer; margin-left: 15px; transition: transform 0.3s;">❄️</button>
             <button id="theme-toggle" title="Сменить тему">🌙</button>
 
             <a href="#" onclick="setLang('ru'); return false;" id="lang-ru" class="lang-btn active-lang">Русский</a>
@@ -106,8 +126,15 @@
         </div>
     </main>
 
-    <footer>
+    <footer style="position: relative; overflow: hidden; padding-bottom: 120px;">
         <p>&copy; 2026 Mini Viperr. <span id="t-footer">Все права защищены.</span></p>
+        
+        <div id="winter-footer" style="display: none; position: absolute; bottom: 0; left: 0; width: 100%; height: 100px; pointer-events: none;">
+            <div style="position: absolute; bottom: -10px; left: 10%; font-size: 50px;">⛄</div>
+            <div style="position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%); font-size: 70px;">🎄</div>
+            <div style="position: absolute; bottom: -15px; right: 15%; font-size: 60px;">☃️</div>
+            <div style="position: absolute; bottom: 0; left: 0; width: 100%; height: 40px; background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23ffffff" fill-opacity="0.8" d="M0,224L48,213.3C96,203,192,181,288,181.3C384,181,480,203,576,224C672,245,768,267,864,250.7C960,235,1056,181,1152,165.3C1248,149,1344,171,1392,181.3L1440,192L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>') repeat-x; background-size: cover;"></div>
+        </div>
     </footer>
 
     <button id="scrollToTop" title="Наверх">↑</button>
