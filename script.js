@@ -57,6 +57,10 @@ document.addEventListener("DOMContentLoaded", () => {
     if(document.getElementById('page-home').style.display !== 'none') {
         startTypewriter('ru');
     }
+
+    initCustomCursor();
+    initParticles();
+    initNewYearToggle();
 });
 
 function showPage(pageId) {
@@ -160,24 +164,4 @@ function setLang(lang) {
 function startTypewriter(lang = 'ru') {
     const text = translations[lang].homeTitle;
     const element = document.getElementById('t-home-title');
-    if (!element) return;
-    
-    element.innerHTML = '<span id="typewriter-text"></span><span class="typewriter-cursor">&nbsp;</span>';
-    
-    const textSpan = document.getElementById('typewriter-text');
-    const cursor = element.querySelector('.typewriter-cursor');
-    let i = 0;
-    const speed = 100; 
-
-    function typeWriter() {
-        if (i < text.length) {
-            textSpan.innerText += text.charAt(i);
-            i++;
-            setTimeout(typeWriter, speed);
-        } else {
-            cursor.style.display = 'none';
-        }
-    }
-    cursor.style.display = 'inline-block';
-    typeWriter();
-}
+    if (!element
