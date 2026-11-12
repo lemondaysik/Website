@@ -208,7 +208,7 @@ function initCustomCursor() {
 let animationFrameId;
 let particleType = 'snow';
 let particlesArray = [];
-let mouse = { x: null, y: null, radius: 120 };
+let mouse = { x: null, y: null, radius: 100 };
 
 function initParticles() {
     const canvas = document.getElementById('particles-bg');
@@ -237,8 +237,8 @@ function initParticles() {
         constructor() {
             this.x = Math.random() * canvas.width;
             this.y = Math.random() * canvas.height;
-            this.size = Math.random() * 1.5 + 1; // Чуть уменьшил для реализма
-            this.density = (Math.random() * 30) + 1;
+            this.size = Math.random() * 1.5 + 1.5; 
+            this.density = (Math.random() * 20) + 1; // Уменьшил плотность
             this.speedY = Math.random() * 1 + 0.5;
             this.rotation = Math.random() * 360;
             this.rotationSpeed = Math.random() * 1 - 0.5;
@@ -287,29 +287,27 @@ function initParticles() {
                 ctx.save();
                 ctx.translate(this.x, this.y);
                 ctx.rotate(this.rotation * Math.PI / 180);
+                
+                // Убрали тяжелые тени и сделали линии чуть прозрачнее
                 ctx.strokeStyle = `rgba(255, 255, 255, ${this.opacity})`;
-                ctx.lineWidth = 1.5;
+                ctx.lineWidth = 1.2;
                 ctx.lineCap = 'round';
-                ctx.shadowBlur = 5;
-                ctx.shadowColor = 'rgba(255, 255, 255, 0.5)';
 
-                // Рисуем реалистичную снежинку с веточками
                 for (let i = 0; i < 6; i++) {
                     ctx.rotate(Math.PI / 3);
                     ctx.beginPath();
                     ctx.moveTo(0, 0);
-                    ctx.lineTo(0, -this.size * 4);
-                    ctx.stroke();
-                    
-                    // Веточки
-                    ctx.beginPath();
-                    ctx.moveTo(0, -this.size * 2);
-                    ctx.lineTo(-this.size, -this.size * 3);
+                    ctx.lineTo(0, -this.size * 3);
                     ctx.stroke();
                     
                     ctx.beginPath();
-                    ctx.moveTo(0, -this.size * 2);
-                    ctx.lineTo(this.size, -this.size * 3);
+                    ctx.moveTo(0, -this.size * 1.5);
+                    ctx.lineTo(-this.size * 0.8, -this.size * 2.5);
+                    ctx.stroke();
+                    
+                    ctx.beginPath();
+                    ctx.moveTo(0, -this.size * 1.5);
+                    ctx.lineTo(this.size * 0.8, -this.size * 2.5);
                     ctx.stroke();
                 }
                 ctx.restore();
@@ -319,7 +317,8 @@ function initParticles() {
 
     function initParticleArray() {
         particlesArray = [];
-        let numberOfParticles = (canvas.width * canvas.height) / 12000;
+        // Значительно уменьшили количество частиц (с 10000 до 25000 делителя)
+        let numberOfParticles = (canvas.width * canvas.height) / 25000; 
         for (let i = 0; i < numberOfParticles; i++) {
             particlesArray.push(new Particle());
         }
