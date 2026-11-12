@@ -208,7 +208,7 @@ function initCustomCursor() {
 let animationFrameId;
 let particleType = 'snow';
 let particlesArray = [];
-let mouse = { x: null, y: null, radius: 100 };
+let mouse = { x: null, y: null, radius: 120 };
 
 function initParticles() {
     const canvas = document.getElementById('particles-bg');
@@ -237,12 +237,12 @@ function initParticles() {
         constructor() {
             this.x = Math.random() * canvas.width;
             this.y = Math.random() * canvas.height;
-            this.size = Math.random() * 1.5 + 1.5; 
-            this.density = (Math.random() * 20) + 1; // Уменьшил плотность
-            this.speedY = Math.random() * 1 + 0.5;
+            this.size = Math.random() * 2 + 2; // Сделал их чуть крупнее
+            this.density = (Math.random() * 25) + 1; 
+            this.speedY = Math.random() * 1.5 + 0.8;
             this.rotation = Math.random() * 360;
             this.rotationSpeed = Math.random() * 1 - 0.5;
-            this.opacity = Math.random() * 0.5 + 0.3;
+            this.opacity = Math.random() * 0.6 + 0.4;
         }
         update() {
             if (mouse.x != null && mouse.y != null) {
@@ -288,26 +288,25 @@ function initParticles() {
                 ctx.translate(this.x, this.y);
                 ctx.rotate(this.rotation * Math.PI / 180);
                 
-                // Убрали тяжелые тени и сделали линии чуть прозрачнее
                 ctx.strokeStyle = `rgba(255, 255, 255, ${this.opacity})`;
-                ctx.lineWidth = 1.2;
+                ctx.lineWidth = 1.5;
                 ctx.lineCap = 'round';
 
                 for (let i = 0; i < 6; i++) {
                     ctx.rotate(Math.PI / 3);
                     ctx.beginPath();
                     ctx.moveTo(0, 0);
-                    ctx.lineTo(0, -this.size * 3);
+                    ctx.lineTo(0, -this.size * 4); // Удлинил лучи
                     ctx.stroke();
                     
                     ctx.beginPath();
-                    ctx.moveTo(0, -this.size * 1.5);
-                    ctx.lineTo(-this.size * 0.8, -this.size * 2.5);
+                    ctx.moveTo(0, -this.size * 2);
+                    ctx.lineTo(-this.size * 1.2, -this.size * 3);
                     ctx.stroke();
                     
                     ctx.beginPath();
-                    ctx.moveTo(0, -this.size * 1.5);
-                    ctx.lineTo(this.size * 0.8, -this.size * 2.5);
+                    ctx.moveTo(0, -this.size * 2);
+                    ctx.lineTo(this.size * 1.2, -this.size * 3);
                     ctx.stroke();
                 }
                 ctx.restore();
@@ -317,8 +316,8 @@ function initParticles() {
 
     function initParticleArray() {
         particlesArray = [];
-        // Значительно уменьшили количество частиц (с 10000 до 25000 делителя)
-        let numberOfParticles = (canvas.width * canvas.height) / 25000; 
+        // Увеличил плотность (делитель 18000 вместо 25000)
+        let numberOfParticles = (canvas.width * canvas.height) / 18000; 
         for (let i = 0; i < numberOfParticles; i++) {
             particlesArray.push(new Particle());
         }
