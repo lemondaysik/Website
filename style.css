@@ -1,459 +1,370 @@
-:root {
-    --bg-color: #f4f4f9;
-    --text-color: #333;
-    --primary-color: #ff0000;
-    --card-bg: #ffffff;
-    --nav-border: #ccc;
-}
+const discordLink = "https://discord.gg/zQUdWaAyV5"; 
+const telegramLink = "https://t.me/miniviperr_bot";        
+const donateTgLink = "https://t.me/miniviperr";
 
-body.dark-mode {
-    --bg-color: #121212;
-    --text-color: #e0e0e0;
-    --primary-color: #ff4d4d;
-    --card-bg: #1e1e1e;
-    --nav-border: #444;
-}
+document.addEventListener("DOMContentLoaded", () => {
+    document.getElementById('link-discord').href = discordLink;
+    document.getElementById('link-telegram').href = telegramLink;
+    document.getElementById('link-donate').href = donateTgLink;
 
-body.new-year-mode {
-    --bg-color: #e8f0f8; 
-    --card-bg: #ffffff;
-    --primary-color: #d32f2f; 
-}
+    const themeToggle = document.getElementById('theme-toggle');
+    const currentTheme = localStorage.getItem('theme');
 
-body.dark-mode.new-year-mode {
-    --bg-color: #0f172a; 
-    --card-bg: #1e293b;
-    --primary-color: #ff5252;
-}
+    if (currentTheme === 'dark') {
+        document.body.classList.add('dark-mode');
+        themeToggle.innerText = '☀️';
+    }
 
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    line-height: 1.6;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    transition: background-color 0.3s, color 0.3s;
-    cursor: none;
-}
+    themeToggle.addEventListener('click', () => {
+        document.body.classList.toggle('dark-mode');
+        if (document.body.classList.contains('dark-mode')) {
+            themeToggle.innerText = '☀️';
+            localStorage.setItem('theme', 'dark');
+        } else {
+            themeToggle.innerText = '🌙';
+            localStorage.setItem('theme', 'light');
+        }
+    });
 
-#particles-bg {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-    pointer-events: none;
-}
+    const scrollToTopBtn = document.getElementById("scrollToTop");
+    window.onscroll = function() {
+        if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+            scrollToTopBtn.style.display = "block";
+        } else {
+            scrollToTopBtn.style.display = "none";
+        }
+    };
+    scrollToTopBtn.addEventListener("click", () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
 
-.custom-cursor {
-    width: 20px;
-    height: 20px;
-    border: 2px solid var(--primary-color);
-    border-radius: 50%;
-    position: fixed;
-    pointer-events: none;
-    z-index: 9999;
-    transform: translate(-50%, -50%);
-    transition: width 0.2s, height 0.2s, background-color 0.2s;
-}
-
-.custom-cursor.hover-active {
-    width: 40px;
-    height: 40px;
-    background-color: rgba(255, 0, 0, 0.2);
-}
-
-#garland {
-    position: fixed;
-    top: 60px; 
-    left: 0;
-    width: 100%;
-    height: 30px;
-    z-index: 99;
-    pointer-events: none;
-    overflow: hidden;
-}
-
-.wire {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 20px;
-    border-bottom: 2px solid #333;
-    border-radius: 0 0 50% 50% / 0 0 20px 20px;
-}
-
-.lights {
-    display: flex;
-    justify-content: space-around;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-}
-
-.light {
-    width: 12px;
-    height: 20px;
-    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-    position: relative;
-    top: 15px;
-    opacity: 0.3;
-    animation: flash 2s infinite alternate;
-}
-
-.light::before {
-    content: '';
-    position: absolute;
-    top: -5px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 4px;
-    height: 8px;
-    background: #333;
-}
-
-.light.red { background-color: #ff3333; box-shadow: 0 0 10px #ff3333; animation-delay: 0s; }
-.light.blue { background-color: #3333ff; box-shadow: 0 0 10px #3333ff; animation-delay: 0.5s; }
-.light.green { background-color: #33ff33; box-shadow: 0 0 10px #33ff33; animation-delay: 1s; }
-.light.yellow { background-color: #ffff33; box-shadow: 0 0 10px #ffff33; animation-delay: 1.5s; }
-
-@keyframes flash {
-    0%, 100% { opacity: 0.3; }
-    50% { opacity: 1; }
-}
-
-header {
-    background-color: var(--card-bg);
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    padding: 1rem 2rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    transition: background-color 0.3s;
-}
-
-.logo {
-    font-weight: bold;
-    font-size: 1.2rem;
-    color: var(--primary-color);
-}
-
-nav {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 15px;
-}
-
-nav a {
-    text-decoration: none;
-    color: var(--text-color);
-    font-weight: bold;
-    transition: color 0.3s;
-}
-
-nav a:hover {
-    color: var(--primary-color);
-}
-
-.nav-controls {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-
-#theme-toggle, #newyear-toggle, #particle-toggle {
-    background: none;
-    border: none;
-    font-size: 1.2rem;
-    cursor: pointer;
-    padding: 0;
-    transition: transform 0.3s;
-    display: flex;
-    align-items: center;
-}
-#theme-toggle:hover, #newyear-toggle:hover, #particle-toggle:hover { 
-    transform: scale(1.2); 
-}
-
-.lang-switch {
-    display: flex;
-    align-items: center;
-    border-left: 1px solid var(--nav-border);
-    padding-left: 15px;
-}
-
-.lang-btn {
-    text-decoration: none;
-    color: var(--text-color);
-    font-weight: bold;
-    margin-left: 10px;
-}
-.active-lang {
-    color: var(--primary-color) !important;
-}
-
-main {
-    max-width: 800px;
-    margin: 2rem auto;
-    padding: 0 1rem;
-    flex: 1;
-    width: 100%;
-    box-sizing: border-box;
-}
-
-.hero {
-    text-align: center;
-    padding: 3rem 1rem;
-    background: var(--card-bg);
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-    margin-bottom: 2rem;
-    transition: background-color 0.3s;
-}
-
-.hero h1 {
-    margin-top: 0;
-    color: var(--primary-color);
-}
-
-.typewriter-cursor {
-    display: inline-block;
-    width: 3px;
-    height: 1em;
-    background-color: var(--primary-color);
-    animation: blink 0.75s step-end infinite;
-    margin-left: 5px;
-    vertical-align: bottom;
-}
-
-@keyframes blink {
-    from, to { opacity: 1; }
-    50% { opacity: 0; }
-}
-
-.projects {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 1.5rem;
-}
-
-.card {
-    background: var(--card-bg);
-    padding: 1.5rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-    transition: transform 0.2s, background-color 0.3s;
-    display: flex;
-    flex-direction: column;
-}
-
-.card:hover {
-    transform: translateY(-5px);
-}
-
-.card h3 {
-    margin-top: 0;
-    color: var(--primary-color);
-}
-
-footer {
-    text-align: center;
-    padding: 2rem;
-    color: #777;
-    font-size: 0.9rem;
-    position: relative;
-    overflow: hidden;
-    padding-bottom: 130px; 
-}
-
-#winter-footer {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 120px;
-    pointer-events: none;
-}
-
-.snowdrift {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 60px;
-    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23ffffff" fill-opacity="1" d="M0,224L48,213.3C96,203,192,181,288,181.3C384,181,480,203,576,224C672,245,768,267,864,250.7C960,235,1056,181,1152,165.3C1248,149,1344,171,1392,181.3L1440,192L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>') repeat-x;
-    background-size: cover;
-}
-
-.svg-decor {
-    position: absolute;
-    bottom: 25px; 
-}
-
-.snowman {
-    width: 80px;
-    height: 100px;
-    animation: bounce 4s infinite alternate ease-in-out;
-}
-.snowman.left { left: 15%; }
-.snowman.right { right: 15%; animation-delay: 1s; }
-
-.tree {
-    width: 90px;
-    height: 110px;
-    left: 50%;
-    transform: translateX(-50%);
-    animation: sway 5s infinite ease-in-out;
-}
-
-@keyframes bounce {
-    0% { transform: translateY(0); }
-    100% { transform: translateY(-8px); }
-}
-
-@keyframes sway {
-    0%, 100% { transform: translateX(-50%) rotate(-2deg); }
-    50% { transform: translateX(-50%) rotate(2deg); }
-}
-
-.btn-link {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 10px 20px;
-    border-radius: 6px;
-    text-decoration: none;
-    font-weight: bold;
-    color: white;
-    transition: transform 0.2s, opacity 0.2s;
-    margin-top: auto; 
-    align-self: flex-start;
-    cursor: none;
-}
-
-.btn-link:hover {
-    transform: translateY(-2px);
-    opacity: 0.9;
-}
-
-.btn-discord, .btn-telegram {
-    background-color: #cc0000;
-}
-body.new-year-mode .btn-discord, body.new-year-mode .btn-telegram {
-    background-color: #2e7d32; 
-}
-
-.image-gallery {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); 
-    gap: 15px; 
-    margin: 20px 0;
-}
-
-.site-image {
-    width: 100%; 
-    height: 250px; 
-    object-fit: cover; 
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    transition: transform 0.3s ease;
-}
-
-.site-image:hover {
-    transform: scale(1.05);
-}
-
-.bot-stats {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 15px;
-    margin-top: 30px;
-}
-
-.stat-card {
-    background: var(--bg-color);
-    padding: 15px;
-    border-radius: 8px;
-    text-align: center;
-    border: 1px solid var(--nav-border);
-    transition: transform 0.3s;
-}
-
-.stat-card:hover {
-    transform: translateY(-3px);
-}
-
-.stat-card h2 {
-    margin: 0;
-    color: var(--primary-color);
-    font-size: 1.8rem;
-}
-
-.stat-card p {
-    margin: 5px 0 0 0;
-    font-size: 0.9rem;
-    color: var(--text-color);
-    opacity: 0.8;
-}
-
-.reveal {
-    opacity: 0;
-    transform: translateY(40px);
-    transition: all 0.8s ease-out;
-}
-
-.reveal.active {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-#scrollToTop {
-    display: none;
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    z-index: 99;
-    border: none;
-    outline: none;
-    background-color: var(--primary-color);
-    color: white;
-    cursor: pointer;
-    padding: 12px 18px;
-    border-radius: 50%;
-    font-size: 20px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-    transition: opacity 0.3s, transform 0.3s;
-}
-#scrollToTop:hover {
-    transform: scale(1.1);
-}
-
-@media (max-width: 600px) {
-    header { flex-direction: column; gap: 10px; padding: 10px; }
-    nav { flex-direction: column; gap: 10px; }
-    .nav-controls { flex-wrap: wrap; justify-content: center; gap: 10px; }
-    .lang-switch { border-left: none; padding-left: 0; }
+    const revealElements = document.querySelectorAll('.reveal');
+    const revealOnScroll = () => {
+        const windowHeight = window.innerHeight;
+        const elementVisible = 100;
+        
+        revealElements.forEach((reveal) => {
+            const elementTop = reveal.getBoundingClientRect().top;
+            if (elementTop < windowHeight - elementVisible) {
+                reveal.classList.add('active');
+            }
+        });
+    };
     
-    .btn-link { display: flex; text-align: center; align-self: stretch; justify-content: center; }
-    .image-gallery { grid-template-columns: 1fr; }
-    .site-image { height: auto; }
-    .bot-stats { grid-template-columns: 1fr; }
+    window.addEventListener('scroll', revealOnScroll);
+    revealOnScroll(); 
+
+    if(document.getElementById('page-home').style.display !== 'none') {
+        startTypewriter('ru');
+    }
+
+    initCustomCursor();
+    initParticles();
+    initNewYearToggle();
+});
+
+function showPage(pageId) {
+    const sections = document.querySelectorAll('.page-section');
+    sections.forEach(sec => sec.style.display = 'none');
+    const target = document.getElementById('page-' + pageId);
+    target.style.display = 'block';
     
-    body, .btn-link { cursor: auto; }
-    .custom-cursor { display: none; }
-    #garland { top: 140px; }
+    target.style.animation = 'none';
+    target.offsetHeight; 
+    target.style.animation = null; 
+
+    if(pageId === 'home') {
+        setTimeout(() => {
+            const currentLang = document.getElementById('lang-ru').classList.contains('active-lang') ? 'ru' : 'en';
+            startTypewriter(currentLang);
+        }, 50);
+    }
+}
+
+const translations = {
+    ru: {
+        navHome: "Главная", navImportant: "Важное", navDonate: "Донатик",
+        homeTitle: "Добро пожаловать!",
+        homeDesc: "Этот сайт перенаправит вас на Discord сервер создателей сайта и бота для Telegram.",
+        statServers: "1", statServersDesc: "Сервер",
+        statUsers: "3", statUsersDesc: "Пользователя",
+        statUptime: "99.9%", statUptimeDesc: "Аптайм",
+        importantTitle: "Важные ссылки",
+        importantDesc: "Здесь вы можете найти наши основные проекты.",
+        discordDesc: "По ссылке ниже вы сможете перейти на Discord сервер создателей.",
+        btnDiscord: "Перейти в Discord",
+        telegramDesc: "По ссылке вы сможете найти нашего бота для Telegram.",
+        btnTelegram: "Открыть Telegram-бота",
+        donateTitle: "Поддержать проект",
+        donateDesc1: "Если вы хотите поддержать нас, то вы можете написать в ТГ личку @miniviperr. Также вы можете тыкнуть по картинке ниже и поддержать через DonationAlerts.",
+        donateDesc2: "Также вы можете накинуть туда нфтишок, которые мы продадим и обновим хостинги и купим хороший домен.",
+        footer: "Все права защищены."
+    },
+    en: {
+        navHome: "Home", navImportant: "Important", navDonate: "Donate",
+        homeTitle: "Welcome!",
+        homeDesc: "This website will redirect you to the Discord server of the creators and a Telegram bot.",
+        statServers: "1", statServersDesc: "Server",
+        statUsers: "3", statUsersDesc: "Users",
+        statUptime: "99.9%", statUptimeDesc: "Uptime",
+        importantTitle: "Important Links",
+        importantDesc: "Here you can find our main projects.",
+        discordDesc: "You can use the link below to join the creators' Discord server.",
+        btnDiscord: "Join Discord",
+        telegramDesc: "You can find our Telegram bot at the link.",
+        btnTelegram: "Open Telegram Bot",
+        donateTitle: "Support the Project",
+        donateDesc1: "If you want to support us, you can message us on Telegram @miniviperr. You can also click on the picture below and support via DonationAlerts.",
+        donateDesc2: "You can also send us an NFT, which we will sell to update our hosting and buy a good domain.",
+        footer: "All rights reserved."
+    }
+};
+
+function setLang(lang) {
+    document.documentElement.lang = lang;
+
+    document.getElementById('nav-home').innerText = translations[lang].navHome;
+    document.getElementById('nav-important').innerText = translations[lang].navImportant;
+    document.getElementById('nav-donate').innerText = translations[lang].navDonate;
+
+    if (document.getElementById('page-home').style.display !== 'none') {
+        startTypewriter(lang);
+    } else {
+        document.getElementById('t-home-title').innerText = translations[lang].homeTitle;
+    }
+
+    document.getElementById('t-home-desc').innerText = translations[lang].homeDesc;
+
+    document.getElementById('t-stat-servers').innerText = translations[lang].statServers;
+    document.getElementById('t-stat-servers-desc').innerText = translations[lang].statServersDesc;
+    document.getElementById('t-stat-users').innerText = translations[lang].statUsers;
+    document.getElementById('t-stat-users-desc').innerText = translations[lang].statUsersDesc;
+    document.getElementById('t-stat-uptime').innerText = translations[lang].statUptime;
+    document.getElementById('t-stat-uptime-desc').innerText = translations[lang].statUptimeDesc;
+
+    document.getElementById('t-important-title').innerText = translations[lang].importantTitle;
+    document.getElementById('t-important-desc').innerText = translations[lang].importantDesc;
+    document.getElementById('t-discord-desc').innerText = translations[lang].discordDesc;
+    document.getElementById('t-telegram-desc').innerText = translations[lang].telegramDesc;
     
-    .snowman.left { left: 5%; }
-    .snowman.right { right: 5%; }
+    document.getElementById('t-btn-discord-text').innerText = translations[lang].btnDiscord;
+    document.getElementById('t-btn-telegram-text').innerText = translations[lang].btnTelegram;
+
+    document.getElementById('t-donate-title').innerText = translations[lang].donateTitle;
+    document.getElementById('t-donate-desc1').innerHTML = translations[lang].donateDesc1.replace('@miniviperr', '<a href="https://t.me/miniviperr" target="_blank">@miniviperr</a>');
+    document.getElementById('t-donate-desc2').innerText = translations[lang].donateDesc2;
+
+    document.getElementById('t-footer').innerText = translations[lang].footer;
+
+    document.getElementById('lang-ru').classList.remove('active-lang');
+    document.getElementById('lang-en').classList.remove('active-lang');
+    document.getElementById('lang-' + lang).classList.add('active-lang');
+}
+
+function startTypewriter(lang = 'ru') {
+    const text = translations[lang].homeTitle;
+    const element = document.getElementById('t-home-title');
+    if (!element) return;
+    
+    element.innerHTML = '<span id="typewriter-text"></span><span class="typewriter-cursor">&nbsp;</span>';
+    
+    const textSpan = document.getElementById('typewriter-text');
+    const cursor = element.querySelector('.typewriter-cursor');
+    let i = 0;
+    const speed = 100; 
+
+    function typeWriter() {
+        if (i < text.length) {
+            textSpan.innerText += text.charAt(i);
+            i++;
+            setTimeout(typeWriter, speed);
+        } else {
+            cursor.style.display = 'none';
+        }
+    }
+    cursor.style.display = 'inline-block';
+    typeWriter();
+}
+
+function initCustomCursor() {
+    const cursor = document.querySelector('.custom-cursor');
+    
+    document.addEventListener('mousemove', (e) => {
+        cursor.style.left = e.clientX + 'px';
+        cursor.style.top = e.clientY + 'px';
+    });
+
+    const links = document.querySelectorAll('a, button, .btn-link');
+    links.forEach(link => {
+        link.addEventListener('mouseenter', () => {
+            cursor.classList.add('hover-active');
+        });
+        link.addEventListener('mouseleave', () => {
+            cursor.classList.remove('hover-active');
+        });
+    });
+}
+
+let animationFrameId;
+let particleType = 'snow';
+let particlesArray = [];
+let mouse = { x: null, y: null, radius: 120 };
+
+function initParticles() {
+    const canvas = document.getElementById('particles-bg');
+    const ctx = canvas.getContext('2d');
+
+    window.addEventListener('mousemove', (e) => {
+        mouse.x = e.x;
+        mouse.y = e.y;
+    });
+
+    window.addEventListener('mouseout', () => {
+        mouse.x = null;
+        mouse.y = null;
+    });
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    window.addEventListener('resize', () => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        initParticleArray();
+    });
+
+    class Particle {
+        constructor() {
+            this.x = Math.random() * canvas.width;
+            this.y = Math.random() * canvas.height;
+            this.size = Math.random() * 2 + 1;
+            this.density = (Math.random() * 30) + 1;
+            this.speedY = Math.random() * 1 + 0.5;
+            this.rotation = Math.random() * 360;
+            this.rotationSpeed = Math.random() * 2 - 1;
+        }
+        update() {
+            if (mouse.x != null && mouse.y != null) {
+                let dx = mouse.x - this.x;
+                let dy = mouse.y - this.y;
+                let distance = Math.sqrt(dx * dx + dy * dy);
+                let forceDirectionX = dx / distance;
+                let forceDirectionY = dy / distance;
+                let maxDistance = mouse.radius;
+                let force = (maxDistance - distance) / maxDistance;
+                let directionX = forceDirectionX * force * this.density;
+                let directionY = forceDirectionY * force * this.density;
+
+                if (distance < mouse.radius) {
+                    this.x -= directionX;
+                    this.y -= directionY;
+                } else {
+                    this.x += Math.random() * 2 - 1;
+                    this.y += this.speedY;
+                }
+            } else {
+                this.y += this.speedY;
+                this.x += Math.random() * 2 - 1;
+            }
+
+            if (this.y > canvas.height) {
+                this.y = 0 - this.size;
+                this.x = Math.random() * canvas.width;
+            }
+            if (this.x > canvas.width) this.x = 0;
+            if (this.x < 0) this.x = canvas.width;
+            
+            this.rotation += this.rotationSpeed;
+        }
+        draw() {
+            if (particleType === 'dots') {
+                ctx.fillStyle = '#ff0000';
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            } else if (particleType === 'snow') {
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                ctx.rotate(this.rotation * Math.PI / 180);
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+                ctx.beginPath();
+                for (let i = 0; i < 6; i++) {
+                    ctx.rotate(Math.PI / 3);
+                    ctx.lineTo(0, -this.size * 3);
+                }
+                ctx.fill();
+                ctx.restore();
+            }
+        }
+    }
+
+    function initParticleArray() {
+        particlesArray = [];
+        let numberOfParticles = (canvas.width * canvas.height) / 10000;
+        for (let i = 0; i < numberOfParticles; i++) {
+            particlesArray.push(new Particle());
+        }
+    }
+
+    function animate() {
+        if (particleType === 'off') {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            return; 
+        }
+        
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        for (let i = 0; i < particlesArray.length; i++) {
+            particlesArray[i].update();
+            particlesArray[i].draw();
+        }
+        animationFrameId = requestAnimationFrame(animate);
+    }
+
+    initParticleArray();
+    animate();
+
+    const particleToggle = document.getElementById('particle-toggle');
+
+    particleToggle.addEventListener('click', () => {
+        if (particleType === 'snow') {
+            particleType = 'dots';
+            particleToggle.innerText = '🔴';
+        } else if (particleType === 'dots') {
+            particleType = 'off';
+            particleToggle.innerText = '🚫';
+            cancelAnimationFrame(animationFrameId);
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        } else {
+            particleType = 'snow';
+            particleToggle.innerText = '❄️';
+            initParticleArray();
+            animate();
+        }
+    });
+}
+
+function initNewYearToggle() {
+    const newYearToggle = document.getElementById('newyear-toggle');
+    const garland = document.getElementById('garland');
+    const winterFooter = document.getElementById('winter-footer');
+    const particleToggle = document.getElementById('particle-toggle');
+
+    newYearToggle.addEventListener('click', () => {
+        document.body.classList.toggle('new-year-mode');
+        
+        if (document.body.classList.contains('new-year-mode')) {
+            garland.style.display = 'flex';
+            winterFooter.style.display = 'block';
+            newYearToggle.innerText = '🌴'; 
+            
+            particleType = 'snow';
+            particleToggle.innerText = '❄️';
+            if (animationFrameId) cancelAnimationFrame(animationFrameId);
+            initParticles(); 
+        } else {
+            garland.style.display = 'none';
+            winterFooter.style.display = 'none';
+            newYearToggle.innerText = '🎄';
+        }
+    });
 }
