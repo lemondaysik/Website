@@ -83,7 +83,7 @@ const translations = {
         homeTitle: "Добро пожаловать!",
         homeDesc: "Этот сайт перенаправит вас на Discord сервер создателей сайта и бота для Telegram.",
         statServers: "1", statServersDesc: "Сервер",
-        statUsers: "3", statUsersDesc: "Пользователей",
+        statUsers: "3", statUsersDesc: "Пользователя",
         statUptime: "99.9%", statUptimeDesc: "Аптайм",
         importantTitle: "Важные ссылки",
         importantDesc: "Здесь вы можете найти наши основные проекты.",
@@ -160,16 +160,24 @@ function setLang(lang) {
 function startTypewriter(lang = 'ru') {
     const text = translations[lang].homeTitle;
     const element = document.getElementById('t-home-title');
-    element.innerText = ""; 
+    if (!element) return;
+    
+    element.innerHTML = '<span id="typewriter-text"></span><span class="typewriter-cursor">&nbsp;</span>';
+    
+    const textSpan = document.getElementById('typewriter-text');
+    const cursor = element.querySelector('.typewriter-cursor');
     let i = 0;
     const speed = 100; 
 
     function typeWriter() {
         if (i < text.length) {
-            element.innerText += text.charAt(i);
+            textSpan.innerText += text.charAt(i);
             i++;
             setTimeout(typeWriter, speed);
+        } else {
+            cursor.style.display = 'none';
         }
     }
+    cursor.style.display = 'inline-block';
     typeWriter();
 }
