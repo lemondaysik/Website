@@ -1,167 +1,364 @@
-const discordLink = "https://discord.gg/zQUdWaAyV5"; 
-const telegramLink = "https://t.me/miniviperr_bot";        
-const donateTgLink = "https://t.me/miniviperr";
-
-document.addEventListener("DOMContentLoaded", () => {
-    document.getElementById('link-discord').href = discordLink;
-    document.getElementById('link-telegram').href = telegramLink;
-    document.getElementById('link-donate').href = donateTgLink;
-
-    const themeToggle = document.getElementById('theme-toggle');
-    const currentTheme = localStorage.getItem('theme');
-
-    if (currentTheme === 'dark') {
-        document.body.classList.add('dark-mode');
-        themeToggle.innerText = '☀️';
-    }
-
-    themeToggle.addEventListener('click', () => {
-        document.body.classList.toggle('dark-mode');
-        if (document.body.classList.contains('dark-mode')) {
-            themeToggle.innerText = '☀️';
-            localStorage.setItem('theme', 'dark');
-        } else {
-            themeToggle.innerText = '🌙';
-            localStorage.setItem('theme', 'light');
-        }
-    });
-
-    const scrollToTopBtn = document.getElementById("scrollToTop");
-    window.onscroll = function() {
-        if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
-            scrollToTopBtn.style.display = "block";
-        } else {
-            scrollToTopBtn.style.display = "none";
-        }
-    };
-    scrollToTopBtn.addEventListener("click", () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-
-    const revealElements = document.querySelectorAll('.reveal');
-    const revealOnScroll = () => {
-        const windowHeight = window.innerHeight;
-        const elementVisible = 100;
-        
-        revealElements.forEach((reveal) => {
-            const elementTop = reveal.getBoundingClientRect().top;
-            if (elementTop < windowHeight - elementVisible) {
-                reveal.classList.add('active');
-            }
-        });
-    };
-    
-    window.addEventListener('scroll', revealOnScroll);
-    revealOnScroll(); 
-
-    if(document.getElementById('page-home').style.display !== 'none') {
-        startTypewriter('ru');
-    }
-
-    initCustomCursor();
-    initParticles();
-    initNewYearToggle();
-});
-
-function showPage(pageId) {
-    const sections = document.querySelectorAll('.page-section');
-    sections.forEach(sec => sec.style.display = 'none');
-    const target = document.getElementById('page-' + pageId);
-    target.style.display = 'block';
-    
-    target.style.animation = 'none';
-    target.offsetHeight; 
-    target.style.animation = null; 
-
-    if(pageId === 'home') {
-        setTimeout(() => {
-            const currentLang = document.getElementById('lang-ru').classList.contains('active-lang') ? 'ru' : 'en';
-            startTypewriter(currentLang);
-        }, 50);
-    }
+:root {
+    --bg-color: #f4f4f9;
+    --text-color: #333;
+    --primary-color: #ff0000;
+    --card-bg: #ffffff;
+    --nav-border: #ccc;
 }
 
-const translations = {
-    ru: {
-        navHome: "Главная", navImportant: "Важное", navDonate: "Донатик",
-        homeTitle: "Добро пожаловать!",
-        homeDesc: "Этот сайт перенаправит вас на Discord сервер создателей сайта и бота для Telegram.",
-        statServers: "1", statServersDesc: "Сервер",
-        statUsers: "3", statUsersDesc: "Пользователя",
-        statUptime: "99.9%", statUptimeDesc: "Аптайм",
-        importantTitle: "Важные ссылки",
-        importantDesc: "Здесь вы можете найти наши основные проекты.",
-        discordDesc: "По ссылке ниже вы сможете перейти на Discord сервер создателей.",
-        btnDiscord: "Перейти в Discord",
-        telegramDesc: "По ссылке вы сможете найти нашего бота для Telegram.",
-        btnTelegram: "Открыть Telegram-бота",
-        donateTitle: "Поддержать проект",
-        donateDesc1: "Если вы хотите поддержать нас, то вы можете написать в ТГ личку @miniviperr. Также вы можете тыкнуть по картинке ниже и поддержать через DonationAlerts.",
-        donateDesc2: "Также вы можете накинуть туда нфтишок, которые мы продадим и обновим хостинги и купим хороший домен.",
-        footer: "Все права защищены."
-    },
-    en: {
-        navHome: "Home", navImportant: "Important", navDonate: "Donate",
-        homeTitle: "Welcome!",
-        homeDesc: "This website will redirect you to the Discord server of the creators and a Telegram bot.",
-        statServers: "1", statServersDesc: "Server",
-        statUsers: "3", statUsersDesc: "Users",
-        statUptime: "99.9%", statUptimeDesc: "Uptime",
-        importantTitle: "Important Links",
-        importantDesc: "Here you can find our main projects.",
-        discordDesc: "You can use the link below to join the creators' Discord server.",
-        btnDiscord: "Join Discord",
-        telegramDesc: "You can find our Telegram bot at the link.",
-        btnTelegram: "Open Telegram Bot",
-        donateTitle: "Support the Project",
-        donateDesc1: "If you want to support us, you can message us on Telegram @miniviperr. You can also click on the picture below and support via DonationAlerts.",
-        donateDesc2: "You can also send us an NFT, which we will sell to update our hosting and buy a good domain.",
-        footer: "All rights reserved."
-    }
-};
-
-function setLang(lang) {
-    document.documentElement.lang = lang;
-
-    document.getElementById('nav-home').innerText = translations[lang].navHome;
-    document.getElementById('nav-important').innerText = translations[lang].navImportant;
-    document.getElementById('nav-donate').innerText = translations[lang].navDonate;
-
-    if (document.getElementById('page-home').style.display !== 'none') {
-        startTypewriter(lang);
-    } else {
-        document.getElementById('t-home-title').innerText = translations[lang].homeTitle;
-    }
-
-    document.getElementById('t-home-desc').innerText = translations[lang].homeDesc;
-
-    document.getElementById('t-stat-servers').innerText = translations[lang].statServers;
-    document.getElementById('t-stat-servers-desc').innerText = translations[lang].statServersDesc;
-    document.getElementById('t-stat-users').innerText = translations[lang].statUsers;
-    document.getElementById('t-stat-users-desc').innerText = translations[lang].statUsersDesc;
-    document.getElementById('t-stat-uptime').innerText = translations[lang].statUptime;
-    document.getElementById('t-stat-uptime-desc').innerText = translations[lang].statUptimeDesc;
-
-    document.getElementById('t-important-title').innerText = translations[lang].importantTitle;
-    document.getElementById('t-important-desc').innerText = translations[lang].importantDesc;
-    document.getElementById('t-discord-desc').innerText = translations[lang].discordDesc;
-    document.getElementById('t-telegram-desc').innerText = translations[lang].telegramDesc;
-    
-    document.getElementById('t-btn-discord-text').innerText = translations[lang].btnDiscord;
-    document.getElementById('t-btn-telegram-text').innerText = translations[lang].btnTelegram;
-
-    document.getElementById('t-donate-title').innerText = translations[lang].donateTitle;
-    document.getElementById('t-donate-desc1').innerHTML = translations[lang].donateDesc1.replace('@miniviperr', '<a href="https://t.me/miniviperr" target="_blank">@miniviperr</a>');
-    document.getElementById('t-donate-desc2').innerText = translations[lang].donateDesc2;
-
-    document.getElementById('t-footer').innerText = translations[lang].footer;
-
-    document.getElementById('lang-ru').classList.remove('active-lang');
-    document.getElementById('lang-en').classList.remove('active-lang');
-    document.getElementById('lang-' + lang).classList.add('active-lang');
+body.dark-mode {
+    --bg-color: #121212;
+    --text-color: #e0e0e0;
+    --primary-color: #ff4d4d;
+    --card-bg: #1e1e1e;
+    --nav-border: #444;
 }
 
-function startTypewriter(lang = 'ru') {
-    const text = translations[lang].homeTitle;
-    const element = document.getElementById('t-home-title');
-    if (!element
+body.new-year-mode {
+    --bg-color: #e8f0f8; 
+    --card-bg: #ffffff;
+    --primary-color: #d32f2f; 
+}
+
+body.dark-mode.new-year-mode {
+    --bg-color: #0f172a; 
+    --card-bg: #1e293b;
+    --primary-color: #ff5252;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    transition: background-color 0.3s, color 0.3s;
+    cursor: none;
+}
+
+#particles-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
+}
+
+.custom-cursor {
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--primary-color);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: width 0.2s, height 0.2s, background-color 0.2s;
+}
+
+.custom-cursor.hover-active {
+    width: 40px;
+    height: 40px;
+    background-color: rgba(255, 0, 0, 0.2);
+}
+
+#garland {
+    position: fixed;
+    top: 60px;
+    left: 0;
+    width: 100%;
+    height: 20px;
+    display: flex;
+    justify-content: space-around;
+    z-index: 99;
+    pointer-events: none;
+    border-bottom: 2px solid #222;
+    padding-bottom: 10px;
+}
+
+.light {
+    width: 15px;
+    height: 25px;
+    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+    position: relative;
+    top: 10px;
+    opacity: 0.3;
+    animation: flash 2s infinite alternate;
+}
+
+.light::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4px;
+    height: 10px;
+    background: #222;
+}
+
+.light.red { background-color: #ff3333; box-shadow: 0 0 10px #ff3333; animation-delay: 0s; }
+.light.blue { background-color: #3333ff; box-shadow: 0 0 10px #3333ff; animation-delay: 0.5s; }
+.light.green { background-color: #33ff33; box-shadow: 0 0 10px #33ff33; animation-delay: 1s; }
+.light.yellow { background-color: #ffff33; box-shadow: 0 0 10px #ffff33; animation-delay: 1.5s; }
+
+@keyframes flash {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 1; }
+}
+
+header {
+    background-color: var(--card-bg);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    transition: background-color 0.3s;
+}
+
+.logo {
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: var(--primary-color);
+}
+
+nav {
+    display: flex;
+    align-items: center;
+}
+
+nav a {
+    text-decoration: none;
+    color: var(--text-color);
+    margin-left: 15px;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+nav a:hover {
+    color: var(--primary-color);
+}
+
+#theme-toggle, #newyear-toggle, #particle-toggle {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    margin-left: 15px;
+    transition: transform 0.3s;
+}
+#theme-toggle:hover, #newyear-toggle:hover, #particle-toggle:hover { transform: scale(1.2); }
+
+.lang-btn {
+    border-left: 1px solid var(--nav-border);
+    padding-left: 15px;
+    margin-left: 10px;
+}
+.active-lang {
+    color: var(--primary-color) !important;
+}
+
+main {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+    flex: 1;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.hero {
+    text-align: center;
+    padding: 3rem 1rem;
+    background: var(--card-bg);
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    margin-bottom: 2rem;
+    transition: background-color 0.3s;
+}
+
+.hero h1 {
+    margin-top: 0;
+    color: var(--primary-color);
+}
+
+.typewriter-cursor {
+    display: inline-block;
+    width: 3px;
+    height: 1em;
+    background-color: var(--primary-color);
+    animation: blink 0.75s step-end infinite;
+    margin-left: 5px;
+    vertical-align: bottom;
+}
+
+@keyframes blink {
+    from, to { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+.projects {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+
+.card {
+    background: var(--card-bg);
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    transition: transform 0.2s, background-color 0.3s;
+    display: flex;
+    flex-direction: column;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card h3 {
+    margin-top: 0;
+    color: var(--primary-color);
+}
+
+footer {
+    text-align: center;
+    padding: 2rem;
+    color: #777;
+    font-size: 0.9rem;
+}
+
+.btn-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: bold;
+    color: white;
+    transition: transform 0.2s, opacity 0.2s;
+    margin-top: auto; 
+    align-self: flex-start;
+    cursor: none;
+}
+
+.btn-link:hover {
+    transform: translateY(-2px);
+    opacity: 0.9;
+}
+
+.btn-discord, .btn-telegram {
+    background-color: #cc0000;
+}
+body.new-year-mode .btn-discord, body.new-year-mode .btn-telegram {
+    background-color: #2e7d32; 
+}
+
+.image-gallery {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 15px; 
+    margin: 20px 0;
+}
+
+.site-image {
+    width: 100%; 
+    height: 250px; 
+    object-fit: cover; 
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.site-image:hover {
+    transform: scale(1.05);
+}
+
+.bot-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.stat-card {
+    background: var(--bg-color);
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+    border: 1px solid var(--nav-border);
+    transition: transform 0.3s;
+}
+
+.stat-card:hover {
+    transform: translateY(-3px);
+}
+
+.stat-card h2 {
+    margin: 0;
+    color: var(--primary-color);
+    font-size: 1.8rem;
+}
+
+.stat-card p {
+    margin: 5px 0 0 0;
+    font-size: 0.9rem;
+    color: var(--text-color);
+    opacity: 0.8;
+}
+
+.reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.8s ease-out;
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+#scrollToTop {
+    display: none;
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 99;
+    border: none;
+    outline: none;
+    background-color: var(--primary-color);
+    color: white;
+    cursor: pointer;
+    padding: 12px 18px;
+    border-radius: 50%;
+    font-size: 20px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    transition: opacity 0.3s, transform 0.3s;
+}
+#scrollToTop:hover {
+    transform: scale(1.1);
+}
+
+@media (max-width: 600px) {
+    header { flex-direction: column; gap: 10px; }
+    nav { flex-wrap: wrap; justify-content: center; }
+    .btn-link { display: flex; text-align: center; align-self: stretch; justify-content: center; }
+    .image-gallery { grid-template-columns: 1fr; }
+    .site-image { height: auto; }
+    .bot-stats { grid-template-columns: 1fr; }
+    
+    body, .btn-link { cursor: auto; }
+    .custom-cursor { display: none; }
+}
