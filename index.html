@@ -4,6 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mini Viperr</title>
+    
+    <meta name="description" content="Официальный сайт Mini Viperr. Наш Discord сервер, Telegram бот и способы поддержать проект.">
+    <meta property="og:title" content="Mini Viperr">
+    <meta property="og:description" content="Присоединяйтесь к нашему Discord и используйте нашего Telegram бота!">
+    <meta property="og:image" content="images/3.png">
+    <meta property="og:type" content="website">
+
+    <link rel="icon" href="images/images12333.jpg" type="image/jpeg">
+
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -15,8 +24,10 @@
             <a href="#" onclick="showPage('important'); return false;" id="nav-important">Важное</a>
             <a href="#" onclick="showPage('donate'); return false;" id="nav-donate">Донатик</a>
             
-            <a href="#" onclick="setLang('ru'); return false;" id="lang-ru" style="color: var(--primary-color); border-left: 1px solid #ccc; padding-left: 15px;">Русский</a>
-            <a href="#" onclick="setLang('en'); return false;" id="lang-en">English</a>
+            <button id="theme-toggle" title="Сменить тему">🌙</button>
+
+            <a href="#" onclick="setLang('ru'); return false;" id="lang-ru" class="lang-btn active-lang">Русский</a>
+            <a href="#" onclick="setLang('en'); return false;" id="lang-en" class="lang-btn">English</a>
         </nav>
     </header>
 
@@ -31,7 +42,6 @@
                     <img src="images/image2.png" alt="Фото 2" class="site-image">
                     <img src="images/image.png" alt="Фото 3" class="site-image">
                 </div>
-
             </section>
         </div>
 
@@ -58,14 +68,15 @@
         <div id="page-donate" class="page-section" style="display: none;">
             <section class="hero">
                 <h1 id="t-donate-title">Поддержать проект</h1>
-                <p id="t-donate-desc1">Если вы хотите поддержать нас, то вы можете написать в ТГ личку <a href="https://t.me/miniviperr" target="_blank">@miniviperr</a>.</p>
+                <p id="t-donate-desc1">Если вы хотите поддержать нас, то вы можете написать в ТГ личку <a href="https://t.me/miniviperr" target="_blank">@miniviperr</a>. Также вы можете тыкнуть по картинке ниже и поддержать через DonationAlerts.</p>
                 <p id="t-donate-desc2">Также вы можете накинуть туда нфтишок, которые мы продадим и обновим хостинги и купим хороший домен.</p>
                 
                 <br>
                 <a id="link-donate" href="#" target="_blank" class="btn-link btn-telegram">Написать в Telegram</a>
+                
                 <div class="image-container" style="margin-top: 30px;">
                     <a href="https://www.donationalerts.com/r/lemontesteam" target="_blank">
-                        <img src="images/images123.jpg" alt="Фото для доната" class="site-image">
+                        <img src="images/images123.jpg" alt="DonationAlerts" class="site-image">
                     </a>
                 </div>
             </section>
@@ -75,6 +86,8 @@
     <footer>
         <p>&copy; 2026 Mini Viperr. <span id="t-footer">Все права защищены.</span></p>
     </footer>
+
+    <button id="scrollToTop" title="Наверх">↑</button>
 
     <script src="script.js"></script>
 </body>
