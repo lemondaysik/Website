@@ -3,7 +3,6 @@ const telegramLink = "https://t.me/miniviperr_bot";
 const donateTgLink = "https://t.me/miniviperr";
 
 document.addEventListener("DOMContentLoaded", () => {
-    // Привязка ссылок к кнопкам
     document.getElementById('link-discord').href = discordLink;
     document.getElementById('link-telegram').href = telegramLink;
     document.getElementById('link-donate').href = donateTgLink;
@@ -38,6 +37,26 @@ document.addEventListener("DOMContentLoaded", () => {
     scrollToTopBtn.addEventListener("click", () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     });
+
+    const revealElements = document.querySelectorAll('.reveal');
+    const revealOnScroll = () => {
+        const windowHeight = window.innerHeight;
+        const elementVisible = 100;
+        
+        revealElements.forEach((reveal) => {
+            const elementTop = reveal.getBoundingClientRect().top;
+            if (elementTop < windowHeight - elementVisible) {
+                reveal.classList.add('active');
+            }
+        });
+    };
+    
+    window.addEventListener('scroll', revealOnScroll);
+    revealOnScroll(); 
+
+    if(document.getElementById('page-home').style.display !== 'none') {
+        startTypewriter('ru');
+    }
 });
 
 function showPage(pageId) {
@@ -49,6 +68,13 @@ function showPage(pageId) {
     target.style.animation = 'none';
     target.offsetHeight; 
     target.style.animation = null; 
+
+    if(pageId === 'home') {
+        setTimeout(() => {
+            const currentLang = document.getElementById('lang-ru').classList.contains('active-lang') ? 'ru' : 'en';
+            startTypewriter(currentLang);
+        }, 50);
+    }
 }
 
 const translations = {
@@ -56,6 +82,9 @@ const translations = {
         navHome: "Главная", navImportant: "Важное", navDonate: "Донатик",
         homeTitle: "Добро пожаловать!",
         homeDesc: "Этот сайт перенаправит вас на Discord сервер создателей сайта и бота для Telegram.",
+        statServers: "1 200+", statServersDesc: "Серверов",
+        statUsers: "45 000+", statUsersDesc: "Пользователей",
+        statUptime: "99.9%", statUptimeDesc: "Аптайм",
         importantTitle: "Важные ссылки",
         importantDesc: "Здесь вы можете найти наши основные проекты.",
         discordDesc: "По ссылке ниже вы сможете перейти на Discord сервер создателей.",
@@ -71,6 +100,9 @@ const translations = {
         navHome: "Home", navImportant: "Important", navDonate: "Donate",
         homeTitle: "Welcome!",
         homeDesc: "This website will redirect you to the Discord server of the creators and a Telegram bot.",
+        statServers: "1,200+", statServersDesc: "Servers",
+        statUsers: "45,000+", statUsersDesc: "Users",
+        statUptime: "99.9%", statUptimeDesc: "Uptime",
         importantTitle: "Important Links",
         importantDesc: "Here you can find our main projects.",
         discordDesc: "You can use the link below to join the creators' Discord server.",
@@ -91,16 +123,28 @@ function setLang(lang) {
     document.getElementById('nav-important').innerText = translations[lang].navImportant;
     document.getElementById('nav-donate').innerText = translations[lang].navDonate;
 
-    document.getElementById('t-home-title').innerText = translations[lang].homeTitle;
+    if (document.getElementById('page-home').style.display !== 'none') {
+        startTypewriter(lang);
+    } else {
+        document.getElementById('t-home-title').innerText = translations[lang].homeTitle;
+    }
+
     document.getElementById('t-home-desc').innerText = translations[lang].homeDesc;
+
+    document.getElementById('t-stat-servers').innerText = translations[lang].statServers;
+    document.getElementById('t-stat-servers-desc').innerText = translations[lang].statServersDesc;
+    document.getElementById('t-stat-users').innerText = translations[lang].statUsers;
+    document.getElementById('t-stat-users-desc').innerText = translations[lang].statUsersDesc;
+    document.getElementById('t-stat-uptime').innerText = translations[lang].statUptime;
+    document.getElementById('t-stat-uptime-desc').innerText = translations[lang].statUptimeDesc;
 
     document.getElementById('t-important-title').innerText = translations[lang].importantTitle;
     document.getElementById('t-important-desc').innerText = translations[lang].importantDesc;
     document.getElementById('t-discord-desc').innerText = translations[lang].discordDesc;
     document.getElementById('t-telegram-desc').innerText = translations[lang].telegramDesc;
     
-    document.querySelectorAll('.t-btn-discord').forEach(btn => btn.innerText = translations[lang].btnDiscord);
-    document.querySelectorAll('.t-btn-telegram').forEach(btn => btn.innerText = translations[lang].btnTelegram);
+    document.getElementById('t-btn-discord-text').innerText = translations[lang].btnDiscord;
+    document.getElementById('t-btn-telegram-text').innerText = translations[lang].btnTelegram;
 
     document.getElementById('t-donate-title').innerText = translations[lang].donateTitle;
     document.getElementById('t-donate-desc1').innerHTML = translations[lang].donateDesc1.replace('@miniviperr', '<a href="https://t.me/miniviperr" target="_blank">@miniviperr</a>');
@@ -111,4 +155,21 @@ function setLang(lang) {
     document.getElementById('lang-ru').classList.remove('active-lang');
     document.getElementById('lang-en').classList.remove('active-lang');
     document.getElementById('lang-' + lang).classList.add('active-lang');
+}
+
+function startTypewriter(lang = 'ru') {
+    const text = translations[lang].homeTitle;
+    const element = document.getElementById('t-home-title');
+    element.innerText = ""; 
+    let i = 0;
+    const speed = 100; 
+
+    function typeWriter() {
+        if (i < text.length) {
+            element.innerText += text.charAt(i);
+            i++;
+            setTimeout(typeWriter, speed);
+        }
+    }
+    typeWriter();
 }
