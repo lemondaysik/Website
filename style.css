@@ -142,7 +142,21 @@ header {
     transition: background-color 0.3s;
 }
 
-.logo {
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo-img {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--primary-color);
+}
+
+.logo-text {
     font-weight: bold;
     font-size: 1.2rem;
     color: var(--primary-color);
