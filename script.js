@@ -3,15 +3,52 @@ const telegramLink = "https://t.me/miniviperr_bot";
 const donateTgLink = "https://t.me/miniviperr";
 
 document.addEventListener("DOMContentLoaded", () => {
+    // Привязка ссылок к кнопкам
     document.getElementById('link-discord').href = discordLink;
     document.getElementById('link-telegram').href = telegramLink;
     document.getElementById('link-donate').href = donateTgLink;
+
+    const themeToggle = document.getElementById('theme-toggle');
+    const currentTheme = localStorage.getItem('theme');
+
+    if (currentTheme === 'dark') {
+        document.body.classList.add('dark-mode');
+        themeToggle.innerText = '☀️';
+    }
+
+    themeToggle.addEventListener('click', () => {
+        document.body.classList.toggle('dark-mode');
+        if (document.body.classList.contains('dark-mode')) {
+            themeToggle.innerText = '☀️';
+            localStorage.setItem('theme', 'dark');
+        } else {
+            themeToggle.innerText = '🌙';
+            localStorage.setItem('theme', 'light');
+        }
+    });
+
+    const scrollToTopBtn = document.getElementById("scrollToTop");
+    window.onscroll = function() {
+        if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+            scrollToTopBtn.style.display = "block";
+        } else {
+            scrollToTopBtn.style.display = "none";
+        }
+    };
+    scrollToTopBtn.addEventListener("click", () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
 });
 
 function showPage(pageId) {
     const sections = document.querySelectorAll('.page-section');
     sections.forEach(sec => sec.style.display = 'none');
-    document.getElementById('page-' + pageId).style.display = 'block';
+    const target = document.getElementById('page-' + pageId);
+    target.style.display = 'block';
+    
+    target.style.animation = 'none';
+    target.offsetHeight; 
+    target.style.animation = null; 
 }
 
 const translations = {
@@ -71,7 +108,7 @@ function setLang(lang) {
 
     document.getElementById('t-footer').innerText = translations[lang].footer;
 
-    document.getElementById('lang-ru').style.color = "var(--text-color)";
-    document.getElementById('lang-en').style.color = "var(--text-color)";
-    document.getElementById('lang-' + lang).style.color = "var(--primary-color)";
+    document.getElementById('lang-ru').classList.remove('active-lang');
+    document.getElementById('lang-en').classList.remove('active-lang');
+    document.getElementById('lang-' + lang).classList.add('active-lang');
 }
