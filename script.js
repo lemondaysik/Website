@@ -164,4 +164,207 @@ function setLang(lang) {
 function startTypewriter(lang = 'ru') {
     const text = translations[lang].homeTitle;
     const element = document.getElementById('t-home-title');
-    if (!element
+    if (!element) return;
+    
+    element.innerHTML = '<span id="typewriter-text"></span><span class="typewriter-cursor">&nbsp;</span>';
+    
+    const textSpan = document.getElementById('typewriter-text');
+    const cursor = element.querySelector('.typewriter-cursor');
+    let i = 0;
+    const speed = 100; 
+
+    function typeWriter() {
+        if (i < text.length) {
+            textSpan.innerText += text.charAt(i);
+            i++;
+            setTimeout(typeWriter, speed);
+        } else {
+            cursor.style.display = 'none';
+        }
+    }
+    cursor.style.display = 'inline-block';
+    typeWriter();
+}
+
+function initCustomCursor() {
+    const cursor = document.querySelector('.custom-cursor');
+    
+    document.addEventListener('mousemove', (e) => {
+        cursor.style.left = e.clientX + 'px';
+        cursor.style.top = e.clientY + 'px';
+    });
+
+    const links = document.querySelectorAll('a, button, .btn-link');
+    links.forEach(link => {
+        link.addEventListener('mouseenter', () => {
+            cursor.classList.add('hover-active');
+        });
+        link.addEventListener('mouseleave', () => {
+            cursor.classList.remove('hover-active');
+        });
+    });
+}
+
+let animationFrameId;
+let particleType = 'snow';
+let particlesArray = [];
+let mouse = { x: null, y: null, radius: 120 };
+
+function initParticles() {
+    const canvas = document.getElementById('particles-bg');
+    const ctx = canvas.getContext('2d');
+
+    window.addEventListener('mousemove', (e) => {
+        mouse.x = e.x;
+        mouse.y = e.y;
+    });
+
+    window.addEventListener('mouseout', () => {
+        mouse.x = null;
+        mouse.y = null;
+    });
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    window.addEventListener('resize', () => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        initParticleArray();
+    });
+
+    class Particle {
+        constructor() {
+            this.x = Math.random() * canvas.width;
+            this.y = Math.random() * canvas.height;
+            this.size = Math.random() * 2 + 1;
+            this.density = (Math.random() * 30) + 1;
+            this.speedY = Math.random() * 1 + 0.5;
+            this.rotation = Math.random() * 360;
+            this.rotationSpeed = Math.random() * 2 - 1;
+        }
+        update() {
+            if (mouse.x != null && mouse.y != null) {
+                let dx = mouse.x - this.x;
+                let dy = mouse.y - this.y;
+                let distance = Math.sqrt(dx * dx + dy * dy);
+                let forceDirectionX = dx / distance;
+                let forceDirectionY = dy / distance;
+                let maxDistance = mouse.radius;
+                let force = (maxDistance - distance) / maxDistance;
+                let directionX = forceDirectionX * force * this.density;
+                let directionY = forceDirectionY * force * this.density;
+
+                if (distance < mouse.radius) {
+                    this.x -= directionX;
+                    this.y -= directionY;
+                } else {
+                    this.x += Math.random() * 2 - 1;
+                    this.y += this.speedY;
+                }
+            } else {
+                this.y += this.speedY;
+                this.x += Math.random() * 2 - 1;
+            }
+
+            if (this.y > canvas.height) {
+                this.y = 0 - this.size;
+                this.x = Math.random() * canvas.width;
+            }
+            if (this.x > canvas.width) this.x = 0;
+            if (this.x < 0) this.x = canvas.width;
+            
+            this.rotation += this.rotationSpeed;
+        }
+        draw() {
+            if (particleType === 'dots') {
+                ctx.fillStyle = '#ff0000';
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            } else if (particleType === 'snow') {
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                ctx.rotate(this.rotation * Math.PI / 180);
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+                ctx.beginPath();
+                for (let i = 0; i < 6; i++) {
+                    ctx.rotate(Math.PI / 3);
+                    ctx.lineTo(0, -this.size * 3);
+                }
+                ctx.fill();
+                ctx.restore();
+            }
+        }
+    }
+
+    function initParticleArray() {
+        particlesArray = [];
+        let numberOfParticles = (canvas.width * canvas.height) / 10000;
+        for (let i = 0; i < numberOfParticles; i++) {
+            particlesArray.push(new Particle());
+        }
+    }
+
+    function animate() {
+        if (particleType === 'off') {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            return; 
+        }
+        
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        for (let i = 0; i < particlesArray.length; i++) {
+            particlesArray[i].update();
+            particlesArray[i].draw();
+        }
+        animationFrameId = requestAnimationFrame(animate);
+    }
+
+    initParticleArray();
+    animate();
+
+    const particleToggle = document.getElementById('particle-toggle');
+
+    particleToggle.addEventListener('click', () => {
+        if (particleType === 'snow') {
+            particleType = 'dots';
+            particleToggle.innerText = '🔴';
+        } else if (particleType === 'dots') {
+            particleType = 'off';
+            particleToggle.innerText = '🚫';
+            cancelAnimationFrame(animationFrameId);
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        } else {
+            particleType = 'snow';
+            particleToggle.innerText = '❄️';
+            initParticleArray();
+            animate();
+        }
+    });
+}
+
+function initNewYearToggle() {
+    const newYearToggle = document.getElementById('newyear-toggle');
+    const garland = document.getElementById('garland');
+    const winterFooter = document.getElementById('winter-footer');
+    const particleToggle = document.getElementById('particle-toggle');
+
+    newYearToggle.addEventListener('click', () => {
+        document.body.classList.toggle('new-year-mode');
+        
+        if (document.body.classList.contains('new-year-mode')) {
+            garland.style.display = 'flex';
+            winterFooter.style.display = 'block';
+            newYearToggle.innerText = '🌴'; 
+            
+            particleType = 'snow';
+            particleToggle.innerText = '❄️';
+            if (animationFrameId) cancelAnimationFrame(animationFrameId);
+            initParticles(); 
+        } else {
+            garland.style.display = 'none';
+            winterFooter.style.display = 'none';
+            newYearToggle.innerText = '🎄';
+        }
+    });
+}
