@@ -26,7 +26,7 @@ const translations = {
         telegramDesc: "По ссылке вы сможете найти нашего бота для Telegram.",
         btnTelegram: "Открыть Telegram-бота",
         donateTitle: "Поддержать проект",
-        donateDesc1: "Если вы хотите поддержать нас, то вы можете написать в ТГ личку @miniviperr.",
+        donateDesc1: "Если вы хотите поддержать нас, то вы можете написать в ТГ личку @miniviperr. Также вы можете тыкнуть по картинке ниже и поддержать через DonationAlerts.",
         donateDesc2: "Также вы можете накинуть туда нфтишок, которые мы продадим и обновим хостинги и купим хороший домен.",
         footer: "Все права защищены."
     },
@@ -41,7 +41,7 @@ const translations = {
         telegramDesc: "You can find our Telegram bot at the link.",
         btnTelegram: "Open Telegram Bot",
         donateTitle: "Support the Project",
-        donateDesc1: "If you want to support us, you can message us on Telegram @miniviperr.",
+        donateDesc1: "If you want to support us, you can message us on Telegram @miniviperr. You can also click on the picture below and support via DonationAlerts.",
         donateDesc2: "You can also send us an NFT, which we will sell to update our hosting and buy a good domain.",
         footer: "All rights reserved."
     }
