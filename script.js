@@ -237,11 +237,12 @@ function initParticles() {
         constructor() {
             this.x = Math.random() * canvas.width;
             this.y = Math.random() * canvas.height;
-            this.size = Math.random() * 2 + 1;
+            this.size = Math.random() * 1.5 + 1; // Чуть уменьшил для реализма
             this.density = (Math.random() * 30) + 1;
             this.speedY = Math.random() * 1 + 0.5;
             this.rotation = Math.random() * 360;
-            this.rotationSpeed = Math.random() * 2 - 1;
+            this.rotationSpeed = Math.random() * 1 - 0.5;
+            this.opacity = Math.random() * 0.5 + 0.3;
         }
         update() {
             if (mouse.x != null && mouse.y != null) {
@@ -268,7 +269,7 @@ function initParticles() {
             }
 
             if (this.y > canvas.height) {
-                this.y = 0 - this.size;
+                this.y = 0 - this.size * 5;
                 this.x = Math.random() * canvas.width;
             }
             if (this.x > canvas.width) this.x = 0;
@@ -278,7 +279,7 @@ function initParticles() {
         }
         draw() {
             if (particleType === 'dots') {
-                ctx.fillStyle = '#ff0000';
+                ctx.fillStyle = `rgba(255, 0, 0, ${this.opacity})`;
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
                 ctx.fill();
@@ -286,13 +287,31 @@ function initParticles() {
                 ctx.save();
                 ctx.translate(this.x, this.y);
                 ctx.rotate(this.rotation * Math.PI / 180);
-                ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
-                ctx.beginPath();
+                ctx.strokeStyle = `rgba(255, 255, 255, ${this.opacity})`;
+                ctx.lineWidth = 1.5;
+                ctx.lineCap = 'round';
+                ctx.shadowBlur = 5;
+                ctx.shadowColor = 'rgba(255, 255, 255, 0.5)';
+
+                // Рисуем реалистичную снежинку с веточками
                 for (let i = 0; i < 6; i++) {
                     ctx.rotate(Math.PI / 3);
-                    ctx.lineTo(0, -this.size * 3);
+                    ctx.beginPath();
+                    ctx.moveTo(0, 0);
+                    ctx.lineTo(0, -this.size * 4);
+                    ctx.stroke();
+                    
+                    // Веточки
+                    ctx.beginPath();
+                    ctx.moveTo(0, -this.size * 2);
+                    ctx.lineTo(-this.size, -this.size * 3);
+                    ctx.stroke();
+                    
+                    ctx.beginPath();
+                    ctx.moveTo(0, -this.size * 2);
+                    ctx.lineTo(this.size, -this.size * 3);
+                    ctx.stroke();
                 }
-                ctx.fill();
                 ctx.restore();
             }
         }
@@ -300,7 +319,7 @@ function initParticles() {
 
     function initParticleArray() {
         particlesArray = [];
-        let numberOfParticles = (canvas.width * canvas.height) / 10000;
+        let numberOfParticles = (canvas.width * canvas.height) / 12000;
         for (let i = 0; i < numberOfParticles; i++) {
             particlesArray.push(new Particle());
         }
