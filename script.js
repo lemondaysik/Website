@@ -208,7 +208,7 @@ function initCustomCursor() {
 let animationFrameId;
 let particleType = 'snow';
 let particlesArray = [];
-let mouse = { x: null, y: null, radius: 120 };
+let mouse = { x: null, y: null, radius: 100 };
 
 function initParticles() {
     const canvas = document.getElementById('particles-bg');
@@ -235,48 +235,51 @@ function initParticles() {
 
     class Particle {
         constructor() {
+            this.reset();
+            this.y = Math.random() * canvas.height; 
+        }
+        
+        reset() {
             this.x = Math.random() * canvas.width;
-            this.y = Math.random() * canvas.height;
-            this.size = Math.random() * 2 + 2; // Сделал их чуть крупнее
-            this.density = (Math.random() * 25) + 1; 
-            this.speedY = Math.random() * 1.5 + 0.8;
+            this.y = 0 - Math.random() * 100; 
+            this.size = Math.random() * 2 + 1.5; 
+            this.density = (Math.random() * 20) + 5; 
+            this.speedY = Math.random() * 1.5 + 0.5;
+            this.speedX = Math.random() * 1 - 0.5;
             this.rotation = Math.random() * 360;
             this.rotationSpeed = Math.random() * 1 - 0.5;
             this.opacity = Math.random() * 0.6 + 0.4;
         }
+
         update() {
             if (mouse.x != null && mouse.y != null) {
                 let dx = mouse.x - this.x;
                 let dy = mouse.y - this.y;
                 let distance = Math.sqrt(dx * dx + dy * dy);
-                let forceDirectionX = dx / distance;
-                let forceDirectionY = dy / distance;
                 let maxDistance = mouse.radius;
-                let force = (maxDistance - distance) / maxDistance;
-                let directionX = forceDirectionX * force * this.density;
-                let directionY = forceDirectionY * force * this.density;
-
-                if (distance < mouse.radius) {
-                    this.x -= directionX;
-                    this.y -= directionY;
-                } else {
-                    this.x += Math.random() * 2 - 1;
-                    this.y += this.speedY;
+                
+                if (distance < maxDistance) {
+                    let forceDirectionX = dx / distance;
+                    let forceDirectionY = dy / distance;
+                    let force = (maxDistance - distance) / maxDistance;
+                    
+                    this.x -= forceDirectionX * force * this.density;
+                    this.y -= forceDirectionY * force * this.density;
                 }
-            } else {
-                this.y += this.speedY;
-                this.x += Math.random() * 2 - 1;
             }
 
-            if (this.y > canvas.height) {
-                this.y = 0 - this.size * 5;
-                this.x = Math.random() * canvas.width;
-            }
-            if (this.x > canvas.width) this.x = 0;
-            if (this.x < 0) this.x = canvas.width;
-            
+            this.x += this.speedX;
+            this.y += this.speedY;
             this.rotation += this.rotationSpeed;
+
+            if (this.y > canvas.height + 20) {
+                this.reset();
+            }
+            
+            if (this.x > canvas.width + 20) this.x = -20;
+            if (this.x < -20) this.x = canvas.width + 20;
         }
+
         draw() {
             if (particleType === 'dots') {
                 ctx.fillStyle = `rgba(255, 0, 0, ${this.opacity})`;
@@ -296,7 +299,7 @@ function initParticles() {
                     ctx.rotate(Math.PI / 3);
                     ctx.beginPath();
                     ctx.moveTo(0, 0);
-                    ctx.lineTo(0, -this.size * 4); // Удлинил лучи
+                    ctx.lineTo(0, -this.size * 4);
                     ctx.stroke();
                     
                     ctx.beginPath();
@@ -316,7 +319,6 @@ function initParticles() {
 
     function initParticleArray() {
         particlesArray = [];
-        // Увеличил плотность (делитель 18000 вместо 25000)
         let numberOfParticles = (canvas.width * canvas.height) / 18000; 
         for (let i = 0; i < numberOfParticles; i++) {
             particlesArray.push(new Particle());
