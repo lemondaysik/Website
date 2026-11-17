@@ -57,10 +57,6 @@
             <div class="light blue"></div>
             <div class="light green"></div>
             <div class="light yellow"></div>
-            <div class="light red"></div>
-            <div class="light blue"></div>
-            <div class="light green"></div>
-            <div class="light yellow"></div>
         </div>
     </div>
 
@@ -144,56 +140,96 @@
         <p>&copy; 2026 Mini Viperr. <span id="t-footer">Все права защищены.</span></p>
         
         <div id="winter-footer" style="display: none;">
-            <div class="snowdrift"></div>
+            <svg class="snowdrift-back" viewBox="0 0 1440 320" preserveAspectRatio="none">
+                <path fill="rgba(255, 255, 255, 0.1)" d="M0,224L60,213.3C120,203,240,181,360,181.3C480,181,600,203,720,224C840,245,960,267,1080,250.7C1200,235,1320,181,1380,165.3L1440,160L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path>
+            </svg>
+
+            <svg class="snowdrift-front" viewBox="0 0 1440 320" preserveAspectRatio="none">
+                <defs>
+                    <linearGradient id="snowGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" stop-color="#ffffff" stop-opacity="0.9"/>
+                        <stop offset="100%" stop-color="#e2e8f0" stop-opacity="0.7"/>
+                    </linearGradient>
+                </defs>
+                <path fill="url(#snowGrad)" d="M0,256L48,261.3C96,267,192,277,288,256C384,235,480,181,576,170.7C672,160,768,192,864,213.3C960,235,1056,245,1152,234.7C1248,224,1344,192,1392,176L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+            </svg>
             
             <div class="svg-decor snowman left">
-                <svg viewBox="0 0 100 120" width="100%" height="100%">
+                <svg viewBox="0 0 120 140" width="100%" height="100%">
                     <defs>
-                        <radialGradient id="snowGradient" cx="30%" cy="30%" r="70%">
+                        <radialGradient id="snowBody" cx="35%" cy="35%" r="65%">
                             <stop offset="0%" stop-color="#ffffff"/>
-                            <stop offset="100%" stop-color="#d0d8e8"/>
+                            <stop offset="80%" stop-color="#e2e8f0"/>
+                            <stop offset="100%" stop-color="#94a3b8"/>
                         </radialGradient>
                     </defs>
-                    <ellipse cx="50" cy="105" rx="30" ry="10" fill="rgba(0,0,0,0.2)"/>
-                    <circle cx="50" cy="85" r="25" fill="url(#snowGradient)"/>
-                    <circle cx="50" cy="55" r="18" fill="url(#snowGradient)"/>
-                    <circle cx="50" cy="32" r="13" fill="url(#snowGradient)"/>
-                    <circle cx="45" cy="30" r="2" fill="#1a1a1a"/>
-                    <circle cx="55" cy="30" r="2" fill="#1a1a1a"/>
-                    <path d="M50 35 L62 37 L50 40 Z" fill="#e67e22"/>
-                    <circle cx="50" cy="85" r="2" fill="#333"/>
-                    <circle cx="50" cy="75" r="2" fill="#333"/>
-                    <path d="M35 50 Q50 60 65 50" stroke="#2980b9" stroke-width="4" fill="none"/>
+                    <ellipse cx="60" cy="130" rx="35" ry="10" fill="rgba(0,0,0,0.2)"/>
+                    <circle cx="60" cy="105" r="30" fill="url(#snowBody)"/>
+                    <circle cx="60" cy="65" r="22" fill="url(#snowBody)"/>
+                    <circle cx="60" cy="35" r="16" fill="url(#snowBody)"/>
+                    <path d="M42 80 Q60 95 78 80 L75 70 L45 70 Z" fill="#e74c3c"/>
+                    <path d="M75 70 L85 100 L78 102 L70 75 Z" fill="#c0392b"/>
+                    <circle cx="54" cy="32" r="2.5" fill="#1e293b"/>
+                    <circle cx="66" cy="32" r="2.5" fill="#1e293b"/>
+                    <path d="M60 36 L75 39 L60 42 Z" fill="#f39c12"/>
+                    <circle cx="60" cy="55" r="2" fill="#64748b"/>
+                    <circle cx="60" cy="65" r="2" fill="#64748b"/>
+                    <circle cx="60" cy="75" r="2" fill="#64748b"/>
+                    <path d="M40 60 L20 40" stroke="#5c4033" stroke-width="4" stroke-linecap="round"/>
+                    <path d="M80 60 L100 45" stroke="#5c4033" stroke-width="4" stroke-linecap="round"/>
                 </svg>
             </div>
             
             <div class="svg-decor tree">
-                <svg viewBox="0 0 100 120" width="100%" height="100%">
-                    <ellipse cx="50" cy="110" rx="35" ry="10" fill="rgba(0,0,0,0.2)"/>
-                    <rect x="45" y="90" width="10" height="20" fill="#4e342e"/>
-                    <polygon points="50,15 25,55 35,55 15,85 85,85 65,55 75,55" fill="#1b5e20"/>
-                    <polygon points="50,25 30,55 38,55 22,80 78,80 62,55 70,55" fill="#2e7d32"/>
-                    <circle cx="50" cy="20" r="3" fill="#f1c40f"/>
-                    <circle cx="35" cy="65" r="2" fill="#f1c40f"/>
-                    <circle cx="65" cy="65" r="2" fill="#f1c40f"/>
-                    <circle cx="50" cy="75" r="2" fill="#f1c40f"/>
-                    <circle cx="42" cy="45" r="2" fill="#f1c40f"/>
-                    <circle cx="58" cy="45" r="2" fill="#f1c40f"/>
+                <svg viewBox="0 0 120 150" width="100%" height="100%">
+                    <defs>
+                        <linearGradient id="treeGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" stop-color="#166534"/>
+                            <stop offset="100%" stop-color="#14532d"/>
+                        </linearGradient>
+                        <filter id="glow">
+                            <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+                            <feMerge>
+                                <feMergeNode in="coloredBlur"/>
+                                <feMergeNode in="SourceGraphic"/>
+                            </feMerge>
+                        </filter>
+                    </defs>
+                    <ellipse cx="60" cy="140" rx="45" ry="10" fill="rgba(0,0,0,0.25)"/>
+                    <rect x="54" y="110" width="12" height="25" fill="#451a03" rx="3"/>
+                    <path d="M60 15 L25 60 L95 60 Z" fill="url(#treeGrad)"/>
+                    <path d="M60 45 L15 95 L105 95 Z" fill="url(#treeGrad)"/>
+                    <path d="M60 75 L5 130 L115 130 Z" fill="url(#treeGrad)"/>
+                    <path d="M60 15 L25 60 L45 60 Q60 45 75 60 L95 60 Z" fill="#ffffff" opacity="0.8"/>
+                    <path d="M60 45 L15 95 L40 95 Q60 75 80 95 L105 95 Z" fill="#ffffff" opacity="0.8"/>
+                    <path d="M60 75 L5 130 L35 130 Q60 100 85 130 L115 130 Z" fill="#ffffff" opacity="0.8"/>
+                    <circle cx="60" cy="15" r="5" fill="#fef08a" filter="url(#glow)"/>
+                    <circle cx="45" cy="55" r="3" fill="#ef4444" filter="url(#glow)"/>
+                    <circle cx="75" cy="55" r="3" fill="#3b82f6" filter="url(#glow)"/>
+                    <circle cx="35" cy="85" r="3.5" fill="#fef08a" filter="url(#glow)"/>
+                    <circle cx="85" cy="85" r="3.5" fill="#ef4444" filter="url(#glow)"/>
+                    <circle cx="60" cy="115" r="4" fill="#3b82f6" filter="url(#glow)"/>
+                    <circle cx="25" cy="120" r="3" fill="#ef4444" filter="url(#glow)"/>
+                    <circle cx="95" cy="120" r="3" fill="#fef08a" filter="url(#glow)"/>
                 </svg>
             </div>
 
             <div class="svg-decor snowman right">
-                <svg viewBox="0 0 100 120" width="100%" height="100%">
-                    <ellipse cx="50" cy="105" rx="30" ry="10" fill="rgba(0,0,0,0.2)"/>
-                    <circle cx="50" cy="85" r="25" fill="url(#snowGradient)"/>
-                    <circle cx="50" cy="55" r="18" fill="url(#snowGradient)"/>
-                    <circle cx="50" cy="32" r="13" fill="url(#snowGradient)"/>
-                    <circle cx="45" cy="30" r="2" fill="#1a1a1a"/>
-                    <circle cx="55" cy="30" r="2" fill="#1a1a1a"/>
-                    <path d="M50 35 L62 37 L50 40 Z" fill="#e67e22"/>
-                    <circle cx="50" cy="85" r="2" fill="#333"/>
-                    <circle cx="50" cy="75" r="2" fill="#333"/>
-                    <path d="M35 50 Q50 60 65 50" stroke="#c0392b" stroke-width="4" fill="none"/>
+                <svg viewBox="0 0 120 140" width="100%" height="100%">
+                    <ellipse cx="60" cy="130" rx="35" ry="10" fill="rgba(0,0,0,0.2)"/>
+                    <circle cx="60" cy="105" r="30" fill="url(#snowBody)"/>
+                    <circle cx="60" cy="65" r="22" fill="url(#snowBody)"/>
+                    <circle cx="60" cy="35" r="16" fill="url(#snowBody)"/>
+                    <path d="M42 80 Q60 95 78 80 L75 70 L45 70 Z" fill="#2ecc71"/>
+                    <path d="M75 70 L85 100 L78 102 L70 75 Z" fill="#27ae60"/>
+                    <circle cx="54" cy="32" r="2.5" fill="#1e293b"/>
+                    <circle cx="66" cy="32" r="2.5" fill="#1e293b"/>
+                    <path d="M60 36 L75 39 L60 42 Z" fill="#f39c12"/>
+                    <circle cx="60" cy="55" r="2" fill="#64748b"/>
+                    <circle cx="60" cy="65" r="2" fill="#64748b"/>
+                    <circle cx="60" cy="75" r="2" fill="#64748b"/>
+                    <path d="M40 60 L20 45" stroke="#5c4033" stroke-width="4" stroke-linecap="round"/>
+                    <path d="M80 60 L100 40" stroke="#5c4033" stroke-width="4" stroke-linecap="round"/>
                 </svg>
             </div>
         </div>
