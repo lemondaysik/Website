@@ -208,7 +208,7 @@ function initCustomCursor() {
 let animationFrameId;
 let particleType = 'snow';
 let particlesArray = [];
-let mouse = { x: null, y: null, radius: 100 };
+let mouse = { x: null, y: null, radius: 120 };
 
 function initParticles() {
     const canvas = document.getElementById('particles-bg');
@@ -242,13 +242,13 @@ function initParticles() {
         reset() {
             this.x = Math.random() * canvas.width;
             this.y = 0 - Math.random() * 100; 
-            this.size = Math.random() * 2 + 1.5; 
-            this.density = (Math.random() * 20) + 5; 
-            this.speedY = Math.random() * 1.5 + 0.5;
+            this.size = Math.random() * 1.5 + 1.2; 
+            this.density = (Math.random() * 15) + 5; 
+            this.speedY = Math.random() * 1.5 + 0.8;
             this.speedX = Math.random() * 1 - 0.5;
             this.rotation = Math.random() * 360;
-            this.rotationSpeed = Math.random() * 1 - 0.5;
-            this.opacity = Math.random() * 0.6 + 0.4;
+            this.rotationSpeed = Math.random() * 0.5 - 0.25; 
+            this.opacity = Math.random() * 0.5 + 0.3;
         }
 
         update() {
@@ -282,7 +282,7 @@ function initParticles() {
 
         draw() {
             if (particleType === 'dots') {
-                ctx.fillStyle = `rgba(255, 0, 0, ${this.opacity})`;
+                ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
                 ctx.fill();
@@ -292,26 +292,28 @@ function initParticles() {
                 ctx.rotate(this.rotation * Math.PI / 180);
                 
                 ctx.strokeStyle = `rgba(255, 255, 255, ${this.opacity})`;
-                ctx.lineWidth = 1.5;
+                ctx.lineWidth = 1.2;
                 ctx.lineCap = 'round';
 
-                for (let i = 0; i < 6; i++) {
-                    ctx.rotate(Math.PI / 3);
-                    ctx.beginPath();
-                    ctx.moveTo(0, 0);
-                    ctx.lineTo(0, -this.size * 4);
-                    ctx.stroke();
-                    
-                    ctx.beginPath();
-                    ctx.moveTo(0, -this.size * 2);
-                    ctx.lineTo(-this.size * 1.2, -this.size * 3);
-                    ctx.stroke();
-                    
-                    ctx.beginPath();
-                    ctx.moveTo(0, -this.size * 2);
-                    ctx.lineTo(this.size * 1.2, -this.size * 3);
-                    ctx.stroke();
-                }
+                ctx.beginPath();
+                ctx.moveTo(0, -this.size * 3);
+                ctx.lineTo(0, this.size * 3);
+                ctx.moveTo(-this.size * 2.5, -this.size * 1.5);
+                ctx.lineTo(this.size * 2.5, this.size * 1.5);
+                ctx.moveTo(-this.size * 2.5, this.size * 1.5);
+                ctx.lineTo(this.size * 2.5, -this.size * 1.5);
+                ctx.stroke();
+                
+                ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
+                ctx.beginPath();
+                ctx.arc(0, -this.size * 3, 1, 0, Math.PI * 2);
+                ctx.arc(0, this.size * 3, 1, 0, Math.PI * 2);
+                ctx.arc(-this.size * 2.5, -this.size * 1.5, 1, 0, Math.PI * 2);
+                ctx.arc(this.size * 2.5, this.size * 1.5, 1, 0, Math.PI * 2);
+                ctx.arc(-this.size * 2.5, this.size * 1.5, 1, 0, Math.PI * 2);
+                ctx.arc(this.size * 2.5, -this.size * 1.5, 1, 0, Math.PI * 2);
+                ctx.fill();
+
                 ctx.restore();
             }
         }
@@ -319,7 +321,7 @@ function initParticles() {
 
     function initParticleArray() {
         particlesArray = [];
-        let numberOfParticles = (canvas.width * canvas.height) / 18000; 
+        let numberOfParticles = (canvas.width * canvas.height) / 7000; 
         for (let i = 0; i < numberOfParticles; i++) {
             particlesArray.push(new Particle());
         }
@@ -347,7 +349,7 @@ function initParticles() {
     particleToggle.addEventListener('click', () => {
         if (particleType === 'snow') {
             particleType = 'dots';
-            particleToggle.innerText = '🔴';
+            particleToggle.innerText = '⚪';
         } else if (particleType === 'dots') {
             particleType = 'off';
             particleToggle.innerText = '🚫';
@@ -376,7 +378,6 @@ function initNewYearToggle() {
             winterFooter.style.display = 'block';
             newYearToggle.innerText = '🌴'; 
             
-            // Принудительно включаем темную тему для атмосферы
             document.body.classList.add('dark-mode');
             document.getElementById('theme-toggle').innerText = '☀️';
             
