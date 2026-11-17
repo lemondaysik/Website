@@ -7,18 +7,26 @@
 }
 
 body.dark-mode {
-    --bg-color: #0f172a; 
-    --text-color: #e2e8f0;
-    --primary-color: #ef4444;
-    --card-bg: #1e293b;
-    --nav-border: #334155;
+    --bg-color: #121212; 
+    --text-color: #e0e0e0;
+    --primary-color: #ff4d4d;
+    --card-bg: #1e1e1e;
+    --nav-border: #444;
 }
 
 body.new-year-mode {
-    --bg-color: #0b132b; /* Глубокий ночной синий */
+    --bg-color: #0b132b; 
     --text-color: #f8fafc;
     --primary-color: #f43f5e; 
-    --card-bg: rgba(30, 41, 59, 0.7);
+    --card-bg: rgba(30, 41, 59, 0.8);
+    --nav-border: #334155;
+}
+
+body.dark-mode.new-year-mode {
+    --bg-color: #0b132b; 
+    --text-color: #f8fafc;
+    --primary-color: #f43f5e; 
+    --card-bg: rgba(30, 41, 59, 0.8);
     --nav-border: #334155;
 }
 
@@ -79,7 +87,6 @@ header {
     border-bottom: 1px solid var(--nav-border);
 }
 
-/* Логотип */
 .logo-container {
     display: flex;
     align-items: center;
@@ -341,7 +348,6 @@ body.new-year-mode .btn-discord, body.new-year-mode .btn-telegram {
     transform: scale(1.1);
 }
 
-/* --- ГИРЛЯНДА (СВЕЧЕНИЕ) --- */
 #garland {
     position: fixed;
     top: 60px; 
@@ -404,7 +410,6 @@ body.new-year-mode .btn-discord, body.new-year-mode .btn-telegram {
     50% { opacity: 1; }
 }
 
-/* --- ПОДВАЛ --- */
 #winter-footer {
     position: absolute;
     bottom: 0;
