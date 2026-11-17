@@ -15,19 +15,19 @@ body.dark-mode {
 }
 
 body.new-year-mode {
-    --bg-color: #050914; 
-    --text-color: #e2e8f0;
-    --primary-color: #00f0ff; 
-    --card-bg: rgba(15, 23, 42, 0.6);
-    --nav-border: rgba(255, 255, 255, 0.1);
+    --bg-color: #0f172a; 
+    --text-color: #f8fafc;
+    --primary-color: #f43f5e; 
+    --card-bg: rgba(30, 41, 59, 0.9);
+    --nav-border: #334155;
 }
 
 body.dark-mode.new-year-mode {
-    --bg-color: #050914; 
-    --text-color: #e2e8f0;
-    --primary-color: #00f0ff; 
-    --card-bg: rgba(15, 23, 42, 0.6);
-    --nav-border: rgba(255, 255, 255, 0.1);
+    --bg-color: #0f172a; 
+    --text-color: #f8fafc;
+    --primary-color: #f43f5e; 
+    --card-bg: rgba(30, 41, 59, 0.9);
+    --nav-border: #334155;
 }
 
 body {
@@ -70,7 +70,7 @@ body {
 .custom-cursor.hover-active {
     width: 40px;
     height: 40px;
-    background-color: rgba(0, 240, 255, 0.2);
+    background-color: rgba(244, 63, 94, 0.2);
 }
 
 header {
@@ -137,7 +137,7 @@ main { max-width: 800px; margin: 2rem auto; padding: 0 1rem; flex: 1; width: 100
     backdrop-filter: blur(10px);
 }
 
-.card:hover { transform: translateY(-5px); box-shadow: 0 8px 40px rgba(0, 240, 255, 0.1); }
+.card:hover { transform: translateY(-5px); box-shadow: 0 8px 40px rgba(244, 63, 94, 0.15); }
 .card h3 { margin-top: 0; color: var(--primary-color); transition: color 0.5s; }
 
 footer { text-align: center; padding: 2rem; color: #777; font-size: 0.9rem; position: relative; overflow: hidden; padding-bottom: 140px; }
@@ -161,7 +161,7 @@ footer { text-align: center; padding: 2rem; color: #777; font-size: 0.9rem; posi
 
 .btn-link:hover { transform: translateY(-2px); box-shadow: 0 0 15px var(--primary-color); border-color: var(--primary-color); }
 
-body.new-year-mode .btn-discord, body.new-year-mode .btn-telegram { background: linear-gradient(135deg, rgba(0, 240, 255, 0.2), rgba(0, 240, 255, 0.05)); }
+body.new-year-mode .btn-discord, body.new-year-mode .btn-telegram { background: linear-gradient(135deg, rgba(244, 63, 94, 0.8), rgba(190, 18, 60, 0.8)); }
 
 .image-gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin: 20px 0; }
 .site-image { width: 100%; height: 250px; object-fit: cover; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: transform 0.3s ease, box-shadow 0.3s; }
@@ -185,7 +185,7 @@ body.new-year-mode .btn-discord, body.new-year-mode .btn-telegram { background: 
     border: none;
     outline: none;
     background-color: var(--primary-color);
-    color: #000;
+    color: #fff;
     cursor: pointer;
     padding: 12px 18px;
     border-radius: 50%;
@@ -200,42 +200,63 @@ body.new-year-mode .btn-discord, body.new-year-mode .btn-telegram { background: 
     top: 60px; 
     left: 0;
     width: 100%;
-    height: 50px;
+    height: 40px;
     z-index: 99;
     pointer-events: none;
     overflow: hidden;
 }
 
-.fiber-optic-wire {
+.wire {
+    position: absolute;
+    top: 0;
+    left: -5%;
+    width: 110%;
+    height: 20px;
+    border-bottom: 2px solid #1f2937;
+    border-radius: 0 0 50% 50% / 0 0 20px 20px;
+}
+
+.lights {
+    display: flex;
+    justify-content: space-around;
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
-    height: 100%;
 }
 
-.glow-path {
-    stroke-dasharray: 200;
-    stroke-dashoffset: 0;
-    animation: dash 3s linear infinite;
-    filter: drop-shadow(0 0 5px var(--primary-color));
-    transition: stroke 0.5s;
+.light {
+    width: 16px;
+    height: 26px;
+    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+    position: relative;
+    top: 15px;
+    opacity: 0.9;
+    animation: flash 2s infinite alternate;
+    border: 1px solid rgba(0,0,0,0.2);
+    box-shadow: inset -3px -3px 8px rgba(0,0,0,0.4), inset 3px 3px 5px rgba(255,255,255,0.4);
 }
 
-@keyframes dash {
-    to { stroke-dashoffset: -400; }
+.light::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 6px;
+    height: 10px;
+    background: #1f2937;
+    border-radius: 3px;
 }
 
-.fiber-light {
-    filter: drop-shadow(0 0 8px #fff) drop-shadow(0 0 15px var(--primary-color));
-    animation: pulse 2s infinite alternate;
-    transition: fill 0.5s;
-}
+.light.red { background: radial-gradient(circle at 30% 30%, #fca5a5, #dc2626); box-shadow: 0 0 20px 5px rgba(220, 38, 38, 0.6), inset -3px -3px 8px rgba(0,0,0,0.4); animation-delay: 0s; }
+.light.blue { background: radial-gradient(circle at 30% 30%, #93c5fd, #2563eb); box-shadow: 0 0 20px 5px rgba(37, 99, 235, 0.6), inset -3px -3px 8px rgba(0,0,0,0.4); animation-delay: 0.5s; }
+.light.green { background: radial-gradient(circle at 30% 30%, #86efac, #16a34a); box-shadow: 0 0 20px 5px rgba(22, 163, 74, 0.6), inset -3px -3px 8px rgba(0,0,0,0.4); animation-delay: 1s; }
+.light.yellow { background: radial-gradient(circle at 30% 30%, #fef08a, #eab308); box-shadow: 0 0 20px 5px rgba(234, 179, 8, 0.6), inset -3px -3px 8px rgba(0,0,0,0.4); animation-delay: 1.5s; }
 
-.delay-1 { animation-delay: 0.5s; }
-.delay-2 { animation-delay: 1s; }
-.delay-3 { animation-delay: 1.5s; }
-
-@keyframes pulse {
-    0% { opacity: 0.4; transform: scale(0.8); }
-    100% { opacity: 1; transform: scale(1.5); }
+@keyframes flash {
+    0%, 100% { opacity: 0.8; filter: brightness(0.9); }
+    50% { opacity: 1; filter: brightness(1.3); }
 }
 
 #winter-footer {
@@ -245,68 +266,76 @@ body.new-year-mode .btn-discord, body.new-year-mode .btn-telegram { background: 
     width: 100%;
     height: 140px;
     pointer-events: none;
-    overflow: hidden;
 }
 
-.aurora-bg {
+.snowdrift-back {
     position: absolute;
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 200px;
-    background: linear-gradient(90deg, rgba(0, 240, 255, 0.15) 0%, rgba(139, 92, 246, 0.15) 50%, rgba(0, 240, 255, 0.15) 100%);
-    filter: blur(30px);
-    animation: aurora-move 10s infinite alternate ease-in-out;
-    opacity: 0;
-    transition: opacity 1s;
+    height: 100px;
+    z-index: 1;
 }
 
-body.new-year-mode .aurora-bg {
-    opacity: 1;
-}
-
-@keyframes aurora-move {
-    0% { transform: translateX(-10%) scaleY(1); }
-    100% { transform: translateX(10%) scaleY(1.2); }
-}
-
-.glass-snowdrift {
+.snowdrift-front {
     position: absolute;
-    bottom: 0;
+    bottom: -5px;
     left: 0;
     width: 100%;
-    height: 80px;
+    height: 70px;
     z-index: 3;
-    filter: drop-shadow(0 -5px 15px rgba(0, 240, 255, 0.2));
+    filter: drop-shadow(0 -5px 10px rgba(0,0,0,0.1));
 }
 
 .svg-decor {
     position: absolute;
-    bottom: 20px; 
+    bottom: 25px; 
     z-index: 2;
-    transition: transform 0.3s;
+    filter: drop-shadow(0 15px 15px rgba(0,0,0,0.4));
 }
 
-.snowman { width: 90px; height: 110px; animation: bounce 4s infinite alternate ease-in-out; }
+.snowman {
+    width: 90px;
+    height: 110px;
+    animation: bounce 4s infinite alternate ease-in-out;
+}
 .snowman.left { left: 15%; }
 .snowman.right { right: 15%; animation-delay: 1s; }
-.tree { width: 110px; height: 140px; left: 50%; transform: translateX(-50%); animation: sway 5s infinite ease-in-out; z-index: 4; }
 
-@keyframes bounce { 0% { transform: translateY(0); } 100% { transform: translateY(-8px); } }
-@keyframes sway { 0%, 100% { transform: translateX(-50%) rotate(-1.5deg); } 50% { transform: translateX(-50%) rotate(1.5deg); } }
+.tree {
+    width: 110px;
+    height: 140px;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: sway 5s infinite ease-in-out;
+    z-index: 4;
+}
+
+@keyframes bounce {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-8px); }
+}
+
+@keyframes sway {
+    0%, 100% { transform: translateX(-50%) rotate(-2deg); }
+    50% { transform: translateX(-50%) rotate(2deg); }
+}
 
 @media (max-width: 600px) {
     header { flex-direction: column; gap: 10px; padding: 10px; }
     nav { flex-direction: column; gap: 10px; }
     .nav-controls { flex-wrap: wrap; justify-content: center; gap: 10px; }
     .lang-switch { border-left: none; padding-left: 0; }
+    
     .btn-link { display: flex; text-align: center; align-self: stretch; justify-content: center; }
     .image-gallery { grid-template-columns: 1fr; }
     .site-image { height: auto; }
     .bot-stats { grid-template-columns: 1fr; }
+    
     body, .btn-link { cursor: auto; }
     .custom-cursor { display: none; }
     #garland { top: 140px; }
+    
     .snowman.left { left: 5%; width: 60px; height: 80px; }
     .snowman.right { right: 5%; width: 60px; height: 80px; }
     .tree { width: 80px; height: 100px; }
