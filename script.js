@@ -208,7 +208,7 @@ function initCustomCursor() {
 let animationFrameId;
 let particleType = 'snow';
 let particlesArray = [];
-let mouse = { x: null, y: null, radius: 120 };
+let mouse = { x: null, y: null, radius: 150 };
 
 function initParticles() {
     const canvas = document.getElementById('particles-bg');
@@ -242,13 +242,13 @@ function initParticles() {
         reset() {
             this.x = Math.random() * canvas.width;
             this.y = 0 - Math.random() * 100; 
-            this.size = Math.random() * 1.5 + 1.2; 
-            this.density = (Math.random() * 15) + 5; 
-            this.speedY = Math.random() * 1.5 + 0.8;
-            this.speedX = Math.random() * 1 - 0.5;
+            this.size = Math.random() * 1.5 + 1.2;
+            this.density = (Math.random() * 30) + 10; 
+            this.speedY = Math.random() * 1.2 + 0.5;
+            this.speedX = Math.random() * 0.8 - 0.4;
             this.rotation = Math.random() * 360;
-            this.rotationSpeed = Math.random() * 0.5 - 0.25; 
-            this.opacity = Math.random() * 0.5 + 0.3;
+            this.rotationSpeed = Math.random() * 0.5 - 0.25;
+            this.opacity = Math.random() * 0.6 + 0.4;
         }
 
         update() {
@@ -295,25 +295,24 @@ function initParticles() {
                 ctx.lineWidth = 1.2;
                 ctx.lineCap = 'round';
 
-                ctx.beginPath();
-                ctx.moveTo(0, -this.size * 3);
-                ctx.lineTo(0, this.size * 3);
-                ctx.moveTo(-this.size * 2.5, -this.size * 1.5);
-                ctx.lineTo(this.size * 2.5, this.size * 1.5);
-                ctx.moveTo(-this.size * 2.5, this.size * 1.5);
-                ctx.lineTo(this.size * 2.5, -this.size * 1.5);
-                ctx.stroke();
-                
-                ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
-                ctx.beginPath();
-                ctx.arc(0, -this.size * 3, 1, 0, Math.PI * 2);
-                ctx.arc(0, this.size * 3, 1, 0, Math.PI * 2);
-                ctx.arc(-this.size * 2.5, -this.size * 1.5, 1, 0, Math.PI * 2);
-                ctx.arc(this.size * 2.5, this.size * 1.5, 1, 0, Math.PI * 2);
-                ctx.arc(-this.size * 2.5, this.size * 1.5, 1, 0, Math.PI * 2);
-                ctx.arc(this.size * 2.5, -this.size * 1.5, 1, 0, Math.PI * 2);
-                ctx.fill();
-
+                for (let i = 0; i < 6; i++) {
+                    ctx.rotate(Math.PI / 3);
+                    
+                    ctx.beginPath();
+                    ctx.moveTo(0, 0);
+                    ctx.lineTo(0, -this.size * 3.5);
+                    ctx.stroke();
+                    
+                    ctx.beginPath();
+                    ctx.moveTo(0, -this.size * 2);
+                    ctx.lineTo(-this.size * 0.8, -this.size * 2.8);
+                    ctx.stroke();
+                    
+                    ctx.beginPath();
+                    ctx.moveTo(0, -this.size * 2);
+                    ctx.lineTo(this.size * 0.8, -this.size * 2.8);
+                    ctx.stroke();
+                }
                 ctx.restore();
             }
         }
@@ -321,7 +320,7 @@ function initParticles() {
 
     function initParticleArray() {
         particlesArray = [];
-        let numberOfParticles = (canvas.width * canvas.height) / 7000; 
+        let numberOfParticles = (canvas.width * canvas.height) / 12000; 
         for (let i = 0; i < numberOfParticles; i++) {
             particlesArray.push(new Particle());
         }
