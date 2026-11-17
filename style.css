@@ -92,6 +92,7 @@ header {
     align-items: center;
     gap: 10px;
 }
+
 .logo-img {
     width: 35px;
     height: 35px;
@@ -99,6 +100,7 @@ header {
     object-fit: cover;
     border: 2px solid var(--primary-color);
 }
+
 .logo-text {
     font-weight: bold;
     font-size: 1.2rem;
@@ -156,6 +158,7 @@ nav a:hover {
     font-weight: bold;
     margin-left: 10px;
 }
+
 .active-lang {
     color: var(--primary-color) !important;
 }
@@ -233,7 +236,7 @@ footer {
     font-size: 0.9rem;
     position: relative;
     overflow: hidden;
-    padding-bottom: 130px; 
+    padding-bottom: 140px; 
 }
 
 .btn-link {
@@ -259,6 +262,7 @@ footer {
 .btn-discord, .btn-telegram {
     background-color: #cc0000;
 }
+
 body.new-year-mode .btn-discord, body.new-year-mode .btn-telegram {
     background-color: #f43f5e; 
 }
@@ -357,17 +361,16 @@ body.new-year-mode .btn-discord, body.new-year-mode .btn-telegram {
     z-index: 99;
     pointer-events: none;
     overflow: hidden;
-    transition: top 0.3s;
 }
 
 .wire {
     position: absolute;
     top: 0;
-    left: 0;
-    width: 100%;
-    height: 20px;
-    border-bottom: 2px solid #1a1a1a;
-    border-radius: 0 0 50% 50% / 0 0 20px 20px;
+    left: -10%;
+    width: 120%;
+    height: 25px;
+    border-bottom: 3px solid #1f2937;
+    border-radius: 0 0 50% 50% / 0 0 30px 30px;
 }
 
 .lights {
@@ -381,33 +384,36 @@ body.new-year-mode .btn-discord, body.new-year-mode .btn-telegram {
 
 .light {
     width: 14px;
-    height: 22px;
+    height: 24px;
     border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
     position: relative;
-    top: 15px;
-    opacity: 0.8;
+    top: 20px;
+    opacity: 0.9;
     animation: flash 2s infinite alternate;
+    border: 1px solid rgba(255,255,255,0.2);
+    box-shadow: inset -2px -2px 5px rgba(0,0,0,0.3);
 }
 
 .light::before {
     content: '';
     position: absolute;
-    top: -5px;
+    top: -8px;
     left: 50%;
     transform: translateX(-50%);
-    width: 4px;
-    height: 8px;
-    background: #1a1a1a;
+    width: 6px;
+    height: 10px;
+    background: #1f2937;
+    border-radius: 3px;
 }
 
-.light.red { background-color: #ff3333; box-shadow: 0 0 15px 5px rgba(255, 51, 51, 0.6); animation-delay: 0s; }
-.light.blue { background-color: #3333ff; box-shadow: 0 0 15px 5px rgba(51, 51, 255, 0.6); animation-delay: 0.5s; }
-.light.green { background-color: #33ff33; box-shadow: 0 0 15px 5px rgba(51, 255, 51, 0.6); animation-delay: 1s; }
-.light.yellow { background-color: #ffff33; box-shadow: 0 0 15px 5px rgba(255, 255, 51, 0.6); animation-delay: 1.5s; }
+.light.red { background: radial-gradient(circle at 30% 30%, #ff9999, #ff0000); box-shadow: 0 0 15px 5px rgba(255, 0, 0, 0.6), inset -2px -2px 5px rgba(0,0,0,0.3); animation-delay: 0s; }
+.light.blue { background: radial-gradient(circle at 30% 30%, #9999ff, #0000ff); box-shadow: 0 0 15px 5px rgba(0, 0, 255, 0.6), inset -2px -2px 5px rgba(0,0,0,0.3); animation-delay: 0.5s; }
+.light.green { background: radial-gradient(circle at 30% 30%, #99ff99, #00ff00); box-shadow: 0 0 15px 5px rgba(0, 255, 0, 0.6), inset -2px -2px 5px rgba(0,0,0,0.3); animation-delay: 1s; }
+.light.yellow { background: radial-gradient(circle at 30% 30%, #ffff99, #ffff00); box-shadow: 0 0 15px 5px rgba(255, 255, 0, 0.6), inset -2px -2px 5px rgba(0,0,0,0.3); animation-delay: 1.5s; }
 
 @keyframes flash {
-    0%, 100% { opacity: 0.4; }
-    50% { opacity: 1; }
+    0%, 100% { opacity: 0.7; filter: brightness(0.8); }
+    50% { opacity: 1; filter: brightness(1.5); }
 }
 
 #winter-footer {
@@ -415,49 +421,60 @@ body.new-year-mode .btn-discord, body.new-year-mode .btn-telegram {
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 120px;
+    height: 140px;
     pointer-events: none;
 }
 
-.snowdrift {
+.snowdrift-back, .snowdrift-front {
     position: absolute;
     bottom: 0;
     left: 0;
     width: 100%;
+    pointer-events: none;
+}
+
+.snowdrift-back {
+    height: 80px;
+    z-index: 1;
+}
+
+.snowdrift-front {
     height: 60px;
-    background: linear-gradient(to top, rgba(255,255,255,0.2), rgba(255,255,255,0));
-    border-radius: 50% 50% 0 0 / 30px 30px 0 0;
+    z-index: 3;
 }
 
 .svg-decor {
     position: absolute;
-    bottom: 10px; 
+    bottom: 20px; 
+    z-index: 2;
+    filter: drop-shadow(0 10px 10px rgba(0,0,0,0.3));
 }
 
 .snowman {
-    width: 70px;
-    height: 90px;
+    width: 80px;
+    height: 100px;
     animation: bounce 4s infinite alternate ease-in-out;
 }
 .snowman.left { left: 15%; }
 .snowman.right { right: 15%; animation-delay: 1s; }
 
 .tree {
-    width: 80px;
-    height: 100px;
+    width: 100px;
+    height: 130px;
     left: 50%;
     transform: translateX(-50%);
     animation: sway 5s infinite ease-in-out;
+    z-index: 4;
 }
 
 @keyframes bounce {
     0% { transform: translateY(0); }
-    100% { transform: translateY(-6px); }
+    100% { transform: translateY(-8px); }
 }
 
 @keyframes sway {
-    0%, 100% { transform: translateX(-50%) rotate(-2deg); }
-    50% { transform: translateX(-50%) rotate(2deg); }
+    0%, 100% { transform: translateX(-50%) rotate(-1.5deg); }
+    50% { transform: translateX(-50%) rotate(1.5deg); }
 }
 
 @media (max-width: 600px) {
@@ -475,6 +492,7 @@ body.new-year-mode .btn-discord, body.new-year-mode .btn-telegram {
     .custom-cursor { display: none; }
     #garland { top: 140px; }
     
-    .snowman.left { left: 5%; }
-    .snowman.right { right: 5%; }
+    .snowman.left { left: 5%; width: 60px; height: 80px; }
+    .snowman.right { right: 5%; width: 60px; height: 80px; }
+    .tree { width: 80px; height: 100px; }
 }
