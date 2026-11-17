@@ -376,6 +376,10 @@ function initNewYearToggle() {
             winterFooter.style.display = 'block';
             newYearToggle.innerText = '🌴'; 
             
+            // Принудительно включаем темную тему для атмосферы
+            document.body.classList.add('dark-mode');
+            document.getElementById('theme-toggle').innerText = '☀️';
+            
             particleType = 'snow';
             particleToggle.innerText = '❄️';
             if (animationFrameId) cancelAnimationFrame(animationFrameId);
