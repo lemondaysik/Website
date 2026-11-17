@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Страница не найдена</title>
+    <link rel="icon" href="images/images12333.jpg" type="image/jpeg">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .error-page {
+            text-align: center;
+            padding: 4rem 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 60vh;
+        }
+        .error-code {
+            font-size: 8rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin: 0;
+            line-height: 1;
+        }
+        .error-title {
+            font-size: 1.8rem;
+            margin: 15px 0;
+            color: var(--text-color);
+        }
+        .error-desc {
+            font-size: 1.1rem;
+            opacity: 0.8;
+            margin-bottom: 20px;
+            max-width: 600px;
+        }
+        .error-contacts {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid var(--nav-border);
+            margin-bottom: 30px;
+            max-width: 600px;
+            backdrop-filter: blur(10px);
+        }
+        .error-contacts a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .error-contacts a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="particles-bg"></canvas>
+    <div class="custom-cursor"></div>
+
+    <header>
+        <div class="logo-container">
+            <img src="images/3.png" alt="Logo" class="logo-img">
+            <div class="logo-text">Mini Viperr</div>
+        </div>
+        <nav>
+            <a href="index.html">Вернуться на главную</a>
+        </nav>
+    </header>
+
+    <main class="error-page">
+        <h1 class="error-code">404</h1>
+        <h2 class="error-title">Упс! Страница не найдена.</h2>
+        <p class="error-desc">Похоже, вы перешли по битой ссылке или страница была удалена.</p>
+        
+        <div class="error-contacts">
+            <p>Если вы не можете попасть на сайт, то можете обратиться в ТГ <a href="https://t.me/miniviperr" target="_blank">@miniviperr</a> или в наш <a href="https://discord.gg/zQUdWaAyV5" target="_blank">Discord канал</a>.</p>
+        </div>
+
+        <a href="index.html" class="btn-link btn-telegram" style="align-self: center; padding: 15px 30px; font-size: 1.1rem;">
+            На главную
+        </a>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Mini Viperr. <span>Все права защищены.</span></p>
+    </footer>
+
+    <script>
+        const cursor = document.querySelector('.custom-cursor');
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+        
+        const links = document.querySelectorAll('a, button');
+        links.forEach(link => {
+            link.addEventListener('mouseenter', () => cursor.classList.add('hover-active'));
+            link.addEventListener('mouseleave', () => cursor.classList.remove('hover-active'));
+        });
+    </script>
+</body>
+</html>
