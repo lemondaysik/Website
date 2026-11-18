@@ -61,6 +61,13 @@ document.addEventListener("DOMContentLoaded", () => {
     initCustomCursor();
     initParticles();
     initNewYearToggle();
+
+    setTimeout(() => {
+        const newYearToggle = document.getElementById('newyear-toggle');
+        if (!document.body.classList.contains('new-year-mode')) {
+            newYearToggle.click();
+        }
+    }, 500);
 });
 
 function showPage(pageId) {
@@ -244,8 +251,8 @@ function initParticles() {
             this.y = 0 - Math.random() * 100; 
             this.size = Math.random() * 1.5 + 1.2;
             this.density = (Math.random() * 30) + 10; 
-            this.speedY = Math.random() * 1.2 + 0.5;
-            this.speedX = Math.random() * 0.8 - 0.4;
+            this.speedY = Math.random() * 1.5 + 1;
+            this.speedX = Math.random() * 1 - 0.5;
             this.rotation = Math.random() * 360;
             this.rotationSpeed = Math.random() * 0.5 - 0.25;
             this.opacity = Math.random() * 0.6 + 0.4;
@@ -282,7 +289,7 @@ function initParticles() {
 
         draw() {
             if (particleType === 'dots') {
-                ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
+                ctx.fillStyle = `rgba(255, 0, 0, ${this.opacity})`;
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
                 ctx.fill();
@@ -320,7 +327,7 @@ function initParticles() {
 
     function initParticleArray() {
         particlesArray = [];
-        let numberOfParticles = (canvas.width * canvas.height) / 6000; 
+        let numberOfParticles = (canvas.width * canvas.height) / 8000; 
         for (let i = 0; i < numberOfParticles; i++) {
             particlesArray.push(new Particle());
         }
@@ -348,7 +355,7 @@ function initParticles() {
     particleToggle.addEventListener('click', () => {
         if (particleType === 'snow') {
             particleType = 'dots';
-            particleToggle.innerText = '⚪';
+            particleToggle.innerText = '🔴';
         } else if (particleType === 'dots') {
             particleType = 'off';
             particleToggle.innerText = '🚫';
