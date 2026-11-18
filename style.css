@@ -2,32 +2,40 @@
     --bg-color: #f4f4f9;
     --text-color: #333;
     --primary-color: #ff0000;
-    --card-bg: #ffffff;
-    --nav-border: #ccc;
+    --card-bg: rgba(255, 255, 255, 0.6);
+    --nav-border: rgba(0, 0, 0, 0.1);
+    --glass-border: rgba(255, 255, 255, 0.8);
+    --glass-shadow: rgba(0, 0, 0, 0.05);
 }
 
 body.dark-mode {
     --bg-color: #121212; 
     --text-color: #e0e0e0;
     --primary-color: #ff4d4d;
-    --card-bg: #1e1e1e;
-    --nav-border: #444;
+    --card-bg: rgba(30, 30, 30, 0.5);
+    --nav-border: rgba(255, 255, 255, 0.1);
+    --glass-border: rgba(255, 255, 255, 0.15);
+    --glass-shadow: rgba(0, 0, 0, 0.3);
 }
 
 body.new-year-mode {
     --bg-color: #0f172a; 
     --text-color: #f8fafc;
     --primary-color: #f43f5e; 
-    --card-bg: rgba(30, 41, 59, 0.9);
-    --nav-border: #334155;
+    --card-bg: rgba(30, 41, 59, 0.5);
+    --nav-border: rgba(255, 255, 255, 0.1);
+    --glass-border: rgba(255, 255, 255, 0.2);
+    --glass-shadow: rgba(0, 0, 0, 0.5);
 }
 
 body.dark-mode.new-year-mode {
     --bg-color: #0f172a; 
     --text-color: #f8fafc;
     --primary-color: #f43f5e; 
-    --card-bg: rgba(30, 41, 59, 0.9);
-    --nav-border: #334155;
+    --card-bg: rgba(30, 41, 59, 0.5);
+    --nav-border: rgba(255, 255, 255, 0.1);
+    --glass-border: rgba(255, 255, 255, 0.2);
+    --glass-shadow: rgba(0, 0, 0, 0.5);
 }
 
 body {
@@ -76,7 +84,8 @@ body {
 header {
     background-color: var(--card-bg);
     backdrop-filter: blur(15px);
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    -webkit-backdrop-filter: blur(15px);
+    box-shadow: 0 4px 30px var(--glass-shadow);
     padding: 1rem 2rem;
     display: flex;
     justify-content: space-between;
@@ -110,12 +119,13 @@ main { max-width: 800px; margin: 2rem auto; padding: 0 1rem; flex: 1; width: 100
     text-align: center;
     padding: 3rem 1rem;
     background: var(--card-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     border-radius: 16px;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 32px var(--glass-shadow);
     margin-bottom: 2rem;
-    transition: background-color 0.5s, border-color 0.5s;
-    border: 1px solid var(--nav-border);
-    backdrop-filter: blur(10px);
+    transition: background-color 0.5s, border-color 0.5s, box-shadow 0.3s;
+    border: 1px solid var(--glass-border);
 }
 
 .hero h1 { margin-top: 0; color: var(--primary-color); transition: color 0.5s; }
@@ -129,12 +139,13 @@ main { max-width: 800px; margin: 2rem auto; padding: 0 1rem; flex: 1; width: 100
     background: var(--card-bg);
     padding: 1.5rem;
     border-radius: 16px;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s, background-color 0.5s;
+    box-shadow: 0 4px 30px var(--glass-shadow);
+    transition: transform 0.3s, background-color 0.5s, border-color 0.5s;
     display: flex;
     flex-direction: column;
-    border: 1px solid var(--nav-border);
+    border: 1px solid var(--glass-border);
     backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
 }
 
 .card:hover { transform: translateY(-5px); box-shadow: 0 8px 40px rgba(244, 63, 94, 0.15); }
@@ -164,11 +175,19 @@ footer { text-align: center; padding: 2rem; color: #777; font-size: 0.9rem; posi
 body.new-year-mode .btn-discord, body.new-year-mode .btn-telegram { background: linear-gradient(135deg, rgba(244, 63, 94, 0.8), rgba(190, 18, 60, 0.8)); }
 
 .image-gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin: 20px 0; }
-.site-image { width: 100%; height: 250px; object-fit: cover; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: transform 0.3s ease, box-shadow 0.3s; }
+.site-image { width: 100%; height: 250px; object-fit: cover; border-radius: 12px; box-shadow: 0 4px 6px var(--glass-shadow); transition: transform 0.3s ease, box-shadow 0.3s; }
 .site-image:hover { transform: scale(1.05); box-shadow: 0 0 20px var(--primary-color); }
 
 .bot-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 30px; }
-.stat-card { background: rgba(255,255,255,0.02); padding: 15px; border-radius: 12px; text-align: center; border: 1px solid var(--nav-border); transition: transform 0.3s, border-color 0.5s; backdrop-filter: blur(5px); }
+.stat-card { 
+    background: rgba(255,255,255,0.02); 
+    padding: 15px; 
+    border-radius: 12px; 
+    text-align: center; 
+    border: 1px solid var(--glass-border); 
+    transition: transform 0.3s, border-color 0.5s; 
+    backdrop-filter: blur(5px); 
+}
 .stat-card:hover { transform: translateY(-3px); border-color: var(--primary-color); }
 .stat-card h2 { margin: 0; color: var(--primary-color); font-size: 1.8rem; transition: color 0.5s; }
 .stat-card p { margin: 5px 0 0 0; font-size: 0.9rem; color: var(--text-color); opacity: 0.8; }
