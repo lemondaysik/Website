@@ -140,15 +140,18 @@ main { max-width: 800px; margin: 2rem auto; padding: 0 1rem; flex: 1; width: 100
     padding: 1.5rem;
     border-radius: 20px;
     box-shadow: 0 4px 30px var(--glass-shadow), inset 0 0 0 1px var(--glass-border);
-    transition: transform 0.3s, background 0.5s, border-color 0.5s;
+    transition: box-shadow 0.3s, background 0.5s, border-color 0.5s, transform 0.1s ease-out;
     display: flex;
     flex-direction: column;
     border: 1px solid transparent;
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
+    transform-style: preserve-3d;
 }
 
-.card:hover { transform: translateY(-5px); box-shadow: 0 8px 40px rgba(255, 77, 77, 0.2), inset 0 0 0 1px var(--glass-border); }
+.card:hover { 
+    box-shadow: 0 8px 40px rgba(255, 77, 77, 0.2), inset 0 0 0 1px var(--glass-border); 
+}
 .card h3 { margin-top: 0; color: var(--primary-color); transition: color 0.5s; }
 
 footer { text-align: center; padding: 2rem; color: #777; font-size: 0.9rem; position: relative; overflow: hidden; padding-bottom: 140px; }
@@ -185,11 +188,12 @@ body.new-year-mode .btn-discord, body.new-year-mode .btn-telegram { background: 
     border-radius: 16px; 
     text-align: center; 
     box-shadow: inset 0 0 0 1px var(--glass-border);
-    transition: transform 0.3s, border-color 0.5s; 
+    transition: transform 0.1s ease-out, border-color 0.5s; 
     backdrop-filter: blur(15px);
     border: 1px solid transparent;
+    transform-style: preserve-3d;
 }
-.stat-card:hover { transform: translateY(-3px); border-color: var(--primary-color); }
+.stat-card:hover { border-color: var(--primary-color); }
 .stat-card h2 { margin: 0; color: var(--primary-color); font-size: 1.8rem; transition: color 0.5s; }
 .stat-card p { margin: 5px 0 0 0; font-size: 0.9rem; color: var(--text-color); opacity: 0.8; }
 
