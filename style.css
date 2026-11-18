@@ -2,7 +2,7 @@
     --bg-color: #f4f4f9;
     --text-color: #333;
     --primary-color: #ff0000;
-    --card-bg: rgba(255, 255, 255, 0.25); 
+    --card-bg: rgba(255, 255, 255, 0.75); 
     --nav-border: rgba(0, 0, 0, 0.1);
     --glass-border: rgba(255, 255, 255, 0.5);
     --glass-shadow: rgba(0, 0, 0, 0.05);
@@ -12,7 +12,7 @@ body.dark-mode {
     --bg-color: #121212; 
     --text-color: #e0e0e0;
     --primary-color: #ff4d4d;
-    --card-bg: rgba(30, 30, 30, 0.2); 
+    --card-bg: rgba(30, 30, 30, 0.55); 
     --nav-border: rgba(255, 255, 255, 0.1);
     --glass-border: rgba(255, 255, 255, 0.15);
     --glass-shadow: rgba(0, 0, 0, 0.5);
@@ -22,7 +22,7 @@ body.new-year-mode {
     --bg-color: #0f172a; 
     --text-color: #f8fafc;
     --primary-color: #f43f5e; 
-    --card-bg: rgba(30, 41, 59, 0.15); 
+    --card-bg: rgba(30, 41, 59, 0.75); 
     --nav-border: rgba(255, 255, 255, 0.1);
     --glass-border: rgba(255, 255, 255, 0.2);
     --glass-shadow: rgba(0, 0, 0, 0.6);
