@@ -320,7 +320,7 @@ function initParticles() {
 
     function initParticleArray() {
         particlesArray = [];
-        let numberOfParticles = (canvas.width * canvas.height) / 24000; 
+        let numberOfParticles = (canvas.width * canvas.height) / 6000; 
         for (let i = 0; i < numberOfParticles; i++) {
             particlesArray.push(new Particle());
         }
