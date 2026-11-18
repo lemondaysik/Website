@@ -2,6 +2,8 @@ const discordLink = "https://discord.gg/zQUdWaAyV5";
 const telegramLink = "https://t.me/miniviperr_bot";        
 const donateTgLink = "https://t.me/miniviperr";
 
+/*Если ты это видешь второй создатей гей*/
+
 document.addEventListener("DOMContentLoaded", () => {
     document.getElementById('link-discord').href = discordLink;
     document.getElementById('link-telegram').href = telegramLink;
