@@ -2,13 +2,14 @@ const discordLink = "https://discord.gg/zQUdWaAyV5";
 const telegramLink = "https://t.me/miniviperr_bot";        
 const donateTgLink = "https://t.me/miniviperr";
 
-/*Если ты это видешь второй создатей гей*/
-/*И син хо.....ей женщины*/
-
 document.addEventListener("DOMContentLoaded", () => {
     document.getElementById('link-discord').href = discordLink;
     document.getElementById('link-telegram').href = telegramLink;
     document.getElementById('link-donate').href = donateTgLink;
+
+    const glowElement = document.createElement('div');
+    glowElement.id = 'cursor-glow';
+    document.body.appendChild(glowElement);
 
     const themeToggle = document.getElementById('theme-toggle');
     const currentTheme = localStorage.getItem('theme');
@@ -199,19 +200,24 @@ function startTypewriter(lang = 'ru') {
 
 function initCustomCursor() {
     const cursor = document.querySelector('.custom-cursor');
+    const glow = document.getElementById('cursor-glow');
     
     document.addEventListener('mousemove', (e) => {
         cursor.style.left = e.clientX + 'px';
         cursor.style.top = e.clientY + 'px';
+        
+        glow.style.transform = `translate(${e.clientX}px, ${e.clientY}px) translate(-50%, -50%)`;
     });
 
     const links = document.querySelectorAll('a, button, .btn-link');
     links.forEach(link => {
         link.addEventListener('mouseenter', () => {
             cursor.classList.add('hover-active');
+            glow.style.background = 'radial-gradient(circle, rgba(255, 0, 0, 0.25) 0%, transparent 60%)';
         });
         link.addEventListener('mouseleave', () => {
             cursor.classList.remove('hover-active');
+            glow.style.background = 'radial-gradient(circle, rgba(255, 0, 0, 0.15) 0%, transparent 60%)';
         });
     });
 }
