@@ -67,13 +67,6 @@ document.addEventListener("DOMContentLoaded", () => {
     initNewYearToggle();
     init3DTilt();
     initKonamiCode();
-
-    setTimeout(() => {
-        const newYearToggle = document.getElementById('newyear-toggle');
-        if (!document.body.classList.contains('new-year-mode')) {
-            newYearToggle.click();
-        }
-    }, 500);
 });
 
 function showPage(pageId) {
