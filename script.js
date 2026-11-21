@@ -458,11 +458,22 @@ function initKonamiCode() {
     const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight'];
     let konamiIndex = 0;
 
-    document.addEventListener('keydown', (e) => {
+    window.addEventListener('keydown', (e) => {
+        if (e.key.startsWith('Arrow')) {
+            e.preventDefault();
+        }
+
         if (e.key === konamiCode[konamiIndex]) {
             konamiIndex++;
             if (konamiIndex === konamiCode.length) {
                 document.body.classList.toggle('red-snow');
+                
+                document.body.style.transition = 'filter 0.2s';
+                document.body.style.filter = 'brightness(1.5)';
+                setTimeout(() => {
+                    document.body.style.filter = 'none';
+                }, 200);
+
                 konamiIndex = 0;
             }
         } else {
