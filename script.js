@@ -66,6 +66,7 @@ document.addEventListener("DOMContentLoaded", () => {
     initParticles();
     initNewYearToggle();
     init3DTilt();
+    initKonamiCode();
 
     setTimeout(() => {
         const newYearToggle = document.getElementById('newyear-toggle');
@@ -205,7 +206,6 @@ function initCustomCursor() {
     document.addEventListener('mousemove', (e) => {
         cursor.style.left = e.clientX + 'px';
         cursor.style.top = e.clientY + 'px';
-        
         glow.style.transform = `translate(${e.clientX}px, ${e.clientY}px) translate(-50%, -50%)`;
     });
 
@@ -224,22 +224,17 @@ function initCustomCursor() {
 
 function init3DTilt() {
     const cards = document.querySelectorAll('.card, .stat-card');
-    
     cards.forEach(card => {
         card.addEventListener('mousemove', (e) => {
             const rect = card.getBoundingClientRect();
             const x = e.clientX - rect.left;
             const y = e.clientY - rect.top;
-            
             const centerX = rect.width / 2;
             const centerY = rect.height / 2;
-            
             const rotateX = ((y - centerY) / centerY) * -10;
             const rotateY = ((x - centerX) / centerX) * 10;
-            
             card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
         });
-        
         card.addEventListener('mouseleave', () => {
             card.style.transform = `perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)`;
         });
@@ -254,6 +249,21 @@ let mouse = { x: null, y: null, radius: 150 };
 function initParticles() {
     const canvas = document.getElementById('particles-bg');
     const ctx = canvas.getContext('2d');
+    const particleToggle = document.getElementById('particle-toggle');
+
+    const menu = document.createElement('div');
+    menu.className = 'particle-menu';
+    menu.innerHTML = `
+        <button data-type="snow" class="active">❄️ Снежинки</button>
+        <button data-type="rain">🌧️ Дождь</button>
+        <button data-type="matrix">🟩 Матрица</button>
+        <button data-type="dots">🔴 Точки</button>
+        <button data-type="off">🚫 Выключить</button>
+    `;
+    particleToggle.parentElement.style.position = 'relative';
+    particleToggle.parentElement.appendChild(menu);
+
+    const menuButtons = menu.querySelectorAll('button');
 
     window.addEventListener('mousemove', (e) => {
         mouse.x = e.x;
@@ -290,6 +300,7 @@ function initParticles() {
             this.rotation = Math.random() * 360;
             this.rotationSpeed = Math.random() * 0.5 - 0.25;
             this.opacity = Math.random() * 0.6 + 0.4;
+            this.char = String.fromCharCode(Math.floor(Math.random() * 96) + 33);
         }
 
         update() {
@@ -322,39 +333,45 @@ function initParticles() {
         }
 
         draw() {
-            if (particleType === 'dots') {
-                ctx.fillStyle = `rgba(255, 0, 0, ${this.opacity})`;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
-            } else if (particleType === 'snow') {
+            if (particleType === 'snow') {
                 ctx.save();
                 ctx.translate(this.x, this.y);
                 ctx.rotate(this.rotation * Math.PI / 180);
-                
                 ctx.strokeStyle = `rgba(255, 255, 255, ${this.opacity})`;
                 ctx.lineWidth = 1.2;
                 ctx.lineCap = 'round';
-
                 for (let i = 0; i < 6; i++) {
                     ctx.rotate(Math.PI / 3);
-                    
                     ctx.beginPath();
                     ctx.moveTo(0, 0);
                     ctx.lineTo(0, -this.size * 3.5);
                     ctx.stroke();
-                    
                     ctx.beginPath();
                     ctx.moveTo(0, -this.size * 2);
                     ctx.lineTo(-this.size * 0.8, -this.size * 2.8);
                     ctx.stroke();
-                    
                     ctx.beginPath();
                     ctx.moveTo(0, -this.size * 2);
                     ctx.lineTo(this.size * 0.8, -this.size * 2.8);
                     ctx.stroke();
                 }
                 ctx.restore();
+            } else if (particleType === 'rain') {
+                ctx.strokeStyle = `rgba(174, 194, 224, ${this.opacity})`;
+                ctx.lineWidth = 1.5;
+                ctx.beginPath();
+                ctx.moveTo(this.x, this.y);
+                ctx.lineTo(this.x + this.speedX * 2, this.y - this.size * 6);
+                ctx.stroke();
+            } else if (particleType === 'matrix') {
+                ctx.fillStyle = `rgba(0, 255, 0, ${this.opacity})`;
+                ctx.font = `${this.size * 6}px monospace`;
+                ctx.fillText(this.char, this.x, this.y);
+            } else if (particleType === 'dots') {
+                ctx.fillStyle = `rgba(255, 0, 0, ${this.opacity})`;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
             }
         }
     }
@@ -372,7 +389,6 @@ function initParticles() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             return; 
         }
-        
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         for (let i = 0; i < particlesArray.length; i++) {
             particlesArray[i].update();
@@ -384,22 +400,73 @@ function initParticles() {
     initParticleArray();
     animate();
 
-    const particleToggle = document.getElementById('particle-toggle');
+    let pressTimer;
+    let isLongPress = false;
 
-    particleToggle.addEventListener('click', () => {
-        if (particleType === 'snow') {
-            particleType = 'dots';
-            particleToggle.innerText = '🔴';
-        } else if (particleType === 'dots') {
-            particleType = 'off';
-            particleToggle.innerText = '🚫';
-            cancelAnimationFrame(animationFrameId);
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particleToggle.addEventListener('mousedown', () => {
+        isLongPress = false;
+        pressTimer = setTimeout(() => {
+            isLongPress = true;
+            menu.classList.add('active');
+        }, 400);
+    });
+
+    particleToggle.addEventListener('mouseup', () => {
+        clearTimeout(pressTimer);
+        if (!isLongPress) {
+            menu.classList.toggle('active');
+        }
+    });
+
+    particleToggle.addEventListener('mouseleave', () => {
+        clearTimeout(pressTimer);
+    });
+
+    document.addEventListener('click', (e) => {
+        if (!particleToggle.contains(e.target) && !menu.contains(e.target)) {
+            menu.classList.remove('active');
+        }
+    });
+
+    menuButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            menuButtons.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            
+            particleType = btn.getAttribute('data-type');
+            
+            if (particleType === 'snow') particleToggle.innerText = '❄️';
+            else if (particleType === 'rain') particleToggle.innerText = '🌧️';
+            else if (particleType === 'matrix') particleToggle.innerText = '🟩';
+            else if (particleType === 'dots') particleToggle.innerText = '🔴';
+            else particleToggle.innerText = '🚫';
+
+            if (particleType !== 'off') {
+                initParticleArray();
+                if (animationFrameId) cancelAnimationFrame(animationFrameId);
+                animate();
+            } else {
+                if (animationFrameId) cancelAnimationFrame(animationFrameId);
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+            }
+            menu.classList.remove('active');
+        });
+    });
+}
+
+function initKonamiCode() {
+    const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight'];
+    let konamiIndex = 0;
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === konamiCode[konamiIndex]) {
+            konamiIndex++;
+            if (konamiIndex === konamiCode.length) {
+                document.body.classList.toggle('red-snow');
+                konamiIndex = 0;
+            }
         } else {
-            particleType = 'snow';
-            particleToggle.innerText = '❄️';
-            initParticleArray();
-            animate();
+            konamiIndex = 0;
         }
     });
 }
@@ -424,7 +491,8 @@ function initNewYearToggle() {
             particleType = 'snow';
             particleToggle.innerText = '❄️';
             if (animationFrameId) cancelAnimationFrame(animationFrameId);
-            initParticles(); 
+            initParticleArray();
+            animate(); 
         } else {
             garland.style.display = 'none';
             winterFooter.style.display = 'none';
